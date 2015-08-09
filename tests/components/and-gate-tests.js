@@ -40,4 +40,15 @@
 
     this.assertValueEqualsExpected( andGate.calculate(), 0, 'The and gate should return false.' );
   }
+
+  this.testAndGateReturnsTrueWhenReset = function () {
+    var andGate = new AndGate();
+
+    andGate.addInput( this.falseMock );
+    andGate.addInput( this.falseMock );
+
+    andGate.reset();
+
+    this.assertValueEqualsExpected( andGate.calculate(), 5, 'The and gate should return true.' );
+  }
 }();
