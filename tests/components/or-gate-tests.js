@@ -52,4 +52,26 @@
 
     this.assertValueEqualsExpected( orGate.calculate(), 0, 'The or gate should return false after being reset.' );
   }
+
+  this.testOrGateReturnsTrueWhenRemovingInputs = function () {
+    var orGate = new OrGate();
+
+    orGate.addInput( this.trueMock );
+    orGate.addInput( this.falseMock );
+
+    orGate.removeInput( 1 );
+
+    this.assertValueEqualsExpected( orGate.calculate(), 5, 'The or gate should return true after removing false input.' );
+  }
+
+  this.testAndGateReturnsFalseWhenRemovingInputs = function () {
+    var orGate = new OrGate();
+
+    orGate.addInput( this.trueMock );
+    orGate.addInput( this.falseMock );
+
+    orGate.removeInput( 0 );
+
+    this.assertValueEqualsExpected( orGate.calculate(), 0, 'The or gate should return false after removing true input.' );
+  }
 }();

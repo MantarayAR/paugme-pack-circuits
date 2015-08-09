@@ -51,4 +51,26 @@
 
     this.assertValueEqualsExpected( andGate.calculate(), 5, 'The and gate should return true.' );
   }
+
+  this.testAndGateReturnsTrueWhenRemovingInputs = function () {
+    var andGate = new AndGate();
+
+    andGate.addInput( this.trueMock );
+    andGate.addInput( this.falseMock );
+
+    andGate.removeInput( 1 );
+
+    this.assertValueEqualsExpected( andGate.calculate(), 5, 'The and gate should return true after removing false input.' );
+  }
+
+  this.testAndGateReturnsFalseWhenRemovingInputs = function () {
+    var andGate = new AndGate();
+
+    andGate.addInput( this.trueMock );
+    andGate.addInput( this.falseMock );
+
+    andGate.removeInput( 0 );
+
+    this.assertValueEqualsExpected( andGate.calculate(), 0, 'The and gate should return false after removing true input.' );
+  }
 }();
