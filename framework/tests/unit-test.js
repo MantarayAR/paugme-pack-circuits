@@ -6,11 +6,12 @@ function unitTestWriter() {}
 unitTestWriter.addResult = function( result ) {
   _unitTestsResults.push( result );
 }
-unitTestWriter.addMessage = function( observed, expected, message ) {
+unitTestWriter.addMessage = function( observed, expected, message, data ) {
   _unitTestsMessages.push( {
       observed : observed,
       expected : expected,
-      message : message
+      message : message,
+      data : data
   } );
 }
 unitTestWriter.print = function () {
@@ -35,6 +36,10 @@ unitTestWriter.print = function () {
     for ( var i = 0; i < _unitTestsMessages.length; i++ ) {
       var result = _unitTestsMessages[i];
       console.log( result.message + ' Expected ' + result.expected + ' got ' + result.observed );
+
+      if ( result.data !== '' ) {
+        console.log( result.data );
+      }
     }  
   } else {
     console.log( 'All tests passed!' );
@@ -45,10 +50,11 @@ function isAUnitTest() {
   this.setup    = function () {};
   this.teardown = function () {};
 
-  this.assertValueEqualsExpected = function ( observed, expected, message ) {
+  this.assertValueEqualsExpected = function ( observed, expected, message, data ) {
     if ( observed !== expected ) {
       message = message ? message : '';
-      unitTestWriter.addMessage( observed, expected, message );
+      data    = data ? data : '';
+      unitTestWriter.addMessage( observed, expected, message, data );
       return -1;
     }
   }
