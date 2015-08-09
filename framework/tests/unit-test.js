@@ -31,9 +31,13 @@ unitTestWriter.print = function () {
     console.log( buffer );  
   }
 
-  for ( var i = 0; i < _unitTestsResults.length; i++ ) {
-    var result = _unitTestsMessages[i];
-    console.log( result.message + ' Expected ' + result.expected + ' got ' + result.observed );
+  if ( _unitTestsMessages.length > 0 ) {
+    for ( var i = 0; i < _unitTestsMessages.length; i++ ) {
+      var result = _unitTestsMessages[i];
+      console.log( result.message + ' Expected ' + result.expected + ' got ' + result.observed );
+    }  
+  } else {
+    console.log( 'All tests passed!' );
   }
 }
 
@@ -43,6 +47,7 @@ function isAUnitTest() {
 
   this.assertValueEqualsExpected = function ( observed, expected, message ) {
     if ( observed !== expected ) {
+      message = message ? message : '';
       unitTestWriter.addMessage( observed, expected, message );
       return -1;
     }

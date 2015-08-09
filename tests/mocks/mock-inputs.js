@@ -17,7 +17,7 @@ function FalseLogicMockComponent() {
   this.Class.implement( Gate, this );
 
   this.calculate = function () {
-    return this.TRUE_VOLTAGE;
+    return this.FALSE_VOLTAGE;
   }
 }
 
