@@ -81,4 +81,9 @@ function runUnitTests() {
   }
 
   unitTestWriter.print();
+
+  // Clean up
+  _unitTests = [];
+  _unitTestsMessages = [];
+  _unitTestsResults = [];
 }
