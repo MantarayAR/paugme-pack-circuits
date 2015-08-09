@@ -1,4 +1,4 @@
-+function AndGateTests() {
++new function AndGateTests() {
   isAUnitTest.call( this );
 
   this.setup = function () {

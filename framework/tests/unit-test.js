@@ -1,5 +1,41 @@
-
 _unitTests = [];
+_unitTestsResults = [];
+_unitTestsMessages = [];
+
+function unitTestWriter() {}
+unitTestWriter.addResult = function( result ) {
+  _unitTestsResults.push( result );
+}
+unitTestWriter.addMessage = function( observed, expected, message ) {
+  _unitTestsMessages.push( {
+      observed : observed,
+      expected : expected,
+      message : message
+  } );
+}
+unitTestWriter.print = function () {
+  var buffer = '';
+  var iteration = 0;
+  for ( var i = 0; i < _unitTestsResults.length; i++ ) {
+    iteration++;
+    buffer += _unitTestsResults[i];
+
+    if ( iteration > 10 ) {
+      console.log( buffer );  
+      iteration = 0;
+      buffer = '';
+    }
+  }
+
+  if ( buffer !== '' ) {
+    console.log( buffer );  
+  }
+
+  for ( var i = 0; i < _unitTestsResults.length; i++ ) {
+    var result = _unitTestsMessages[i];
+    console.log( result.message + ' Expected ' + result.expected + ' got ' + result.observed );
+  }
+}
 
 function isAUnitTest() {
   this.setup    = function () {};
@@ -7,7 +43,7 @@ function isAUnitTest() {
 
   this.assertValueEqualsExpected = function ( observed, expected, message ) {
     if ( observed !== expected ) {
-      console.log( message );
+      unitTestWriter.addMessage( observed, expected, message );
       return -1;
     }
   }
@@ -27,15 +63,17 @@ function runUnitTests() {
              part.indexOf('test') === 0 ) {
           var good = test[part]();
 
-          if ( ! good ) {
-            console.log( 'F' );
+          if ( good === false ) {
+            unitTestWriter.addResult( 'F' );
+          } else {
+            unitTestWriter.addResult( '.' );  
           }
-
-          console.log( '.' );
         }
       }
     }
 
     test.teardown();
   }
+
+  unitTestWriter.print();
 }
