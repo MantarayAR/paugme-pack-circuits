@@ -62,4 +62,20 @@
 
     this.assertValueEqualsExpected( notGate.calculate(), 5, 'The not gate should return true after being reset.' );
   }
+
+  this.testNotGateUnAffectedBySecondaryInputs = function () {
+    var notGate = new NotGate();
+
+    notGate.addInput( this.trueMock );
+    notGate.addInput( this.falseMock );
+
+    this.assertValueEqualsExpected( notGate.calculate(), 0, 'The not gate should be false. ' );
+
+    notGate = new NotGate();
+
+    notGate.addInput( this.trueMock );
+    notGate.addInput( this.trueMock );
+
+    this.assertValueEqualsExpected( notGate.calculate(), 0, 'The not gate should be false. ' );
+  }
 }
