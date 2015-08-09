@@ -6,6 +6,21 @@
     this.falseMock = new FalseLogicMockComponent();
   }
 
+  this.testAndGateHasNoAbstractMethods = function () {
+    var andGate = new AndGate();
+    var total   = 0;
+    var badData = [];
+
+    for ( var property in andGate ) {
+      if ( andGate[property] == Class.abstractMethod ) {
+        total += 1;
+        badData.push(property);
+      }
+    }
+
+    this.assertValueEqualsExpected( total, 0, 'The and gate should not have any abstract methods!', badData );
+  }
+
   this.testAndGateReturnsTrueWhenNoInputsGiven = function () {
     var andGate = new AndGate();
 
