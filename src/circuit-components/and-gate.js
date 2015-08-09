@@ -1,7 +1,7 @@
 
 function AndGate() {
   this.Class.extend( Component, this );
-  this.Class.implement( Gate );
+  this.Class.implement( Gate, this );
 
   this.logicHandler = new LogicHandler();
 
