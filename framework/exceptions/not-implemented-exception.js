@@ -1,7 +1,7 @@
 function NotImplementedException( message ) {
-  message = message ? message : 'wow';
+  message = message ? message : 'Method not implmemented!';
 
-  this.message = options.message;
+  this.message = message;
 
   throw new Error( this.message );
 }

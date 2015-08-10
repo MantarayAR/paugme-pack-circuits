@@ -59,6 +59,20 @@ function isAUnitTest() {
     }
   }
 
+  this.assertHasNoAbstractMethods = function ( obj ) {
+    var total   = 0;
+    var badData = [];
+
+    for ( var property in obj ) {
+      if ( obj[property] == Class.abstractMethod ) {
+        total += 1;
+        badData.push(property);
+      }
+    }
+
+    this.assertValueEqualsExpected( total, 0, 'Should not have any abstract methods!', badData );
+  }
+
   _unitTests.push( this );
 }
 
