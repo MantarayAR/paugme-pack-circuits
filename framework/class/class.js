@@ -20,10 +20,12 @@ Class.extend = function ( obj, that ) {
 Class.implement = function ( obj, that ) {
   var o = new obj();
   for ( var property in o ) {
-    if ( typeof o[property] === 'function' ) {
-      that[property] = Class.abstractMethod;
-    } else {
-      that[property] = o[property];
+    if ( typeof that[property] === 'undefined' ) {
+      if ( typeof o[property] === 'function' ) {
+        that[property] = Class.abstractMethod;
+      } else {
+        that[property] = o[property];
+      }  
     }
   }
 }
