@@ -8,17 +8,7 @@
 
   this.testAndGateHasNoAbstractMethods = function () {
     var orGate = new OrGate();
-    var total   = 0;
-    var badData = [];
-
-    for ( var property in orGate ) {
-      if ( orGate[property] == Class.abstractMethod ) {
-        total += 1;
-        badData.push(property);
-      }
-    }
-
-    this.assertValueEqualsExpected( total, 0, 'The or gate should not have any abstract methods!', badData );
+    this.assertHasNoAbstractMethods( this.orGate );
   }
 
   this.testOrGateReturnsFalseWhenNoInputs = function () {
