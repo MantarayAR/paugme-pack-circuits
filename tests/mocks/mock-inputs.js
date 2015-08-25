@@ -1,9 +1,13 @@
+var Class     = require('../../framework/class/class');
+var Component = require('../../framework/components/component');
+var Gate      = require('../../framework/components/gate');
+
 /**
  * Contains mock components for testing
  * true, false, and edge cases.
  */
 
-function TrueLogicMockComponent() {
+exports.TrueLogicMockComponent = function() {
   this.Class.extend( Component, this );
   this.Class.implement( Gate, this );
 
@@ -12,7 +16,7 @@ function TrueLogicMockComponent() {
   }
 }
 
-function FalseLogicMockComponent() {
+exports.FalseLogicMockComponent = function() {
   this.Class.extend( Component, this );
   this.Class.implement( Gate, this );
 
@@ -21,7 +25,7 @@ function FalseLogicMockComponent() {
   }
 }
 
-function FalseBoundaryMockCompnent() {
+exports.FalseBoundaryMockCompnent = function() {
   this.Class.extend( Component, this );
   this.Class.implement( Gate, this );
 
@@ -32,7 +36,7 @@ function FalseBoundaryMockCompnent() {
   }
 }
 
-function NegativeVoltageMockComponent() {
+exports.NegativeVoltageMockComponent = function() {
   this.Class.extend( Component, this );
   this.Class.implement( Gate, this );
 
@@ -41,7 +45,7 @@ function NegativeVoltageMockComponent() {
   }
 }
 
-function HighVoltageMockComponent() {
+exports.HighVoltageMockComponent = function() {
   this.Class.extend( Component, this );
   this.Class.implement( Gate, this );
 

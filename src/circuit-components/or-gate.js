@@ -1,5 +1,9 @@
+var Class        = require('../../framework/class/class.js');
+var Component    = require('../../framework/components/component.js');
+var Gate         = require('../../framework/components/gate.js');
+var LogicHandler = require('../handlers/logic-handler.js');
 
-function OrGate() {
+module.exports = function OrGate() {
   this.Class.extend( Component, this );
   this.Class.implement( Gate, this );
 

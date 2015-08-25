@@ -1,4 +1,6 @@
-function Component() {
+var Class = require('../class/class.js');
+
+module.exports = function Component() {
   this.inputs = [];
   this.calculate = Class.abstractMethod;
 
@@ -13,4 +15,4 @@ function Component() {
   this.reset = function () {
     this.inputs = [];
   }
-}
+};

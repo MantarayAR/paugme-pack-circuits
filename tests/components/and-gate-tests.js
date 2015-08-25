@@ -1,81 +1,89 @@
-+new function AndGateTests() {
-  isAUnitTest.call( this );
+var MockInputs              = require('../mocks/mock-inputs');
+var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
+var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
+var AndGate                 = require('../../src/circuit-components/and-gate');
+var AbstractMatcher         = require('../matchers/abstract-matcher');
 
-  this.setup = function () {
-    this.trueMock = new TrueLogicMockComponent();
-    this.falseMock = new FalseLogicMockComponent();
-  }
+describe('an and gate', function() {
+  var trueMock;
+  var falseMock;
 
-  this.testAndGateHasNoAbstractMethods = function () {
+  beforeEach(function() {
+    trueMock  = new TrueLogicMockComponent();
+    falseMock = new FalseLogicMockComponent();
+    jasmine.addMatchers( AbstractMatcher );
+  });
+
+  it('has no abstract methods', function () {
     var andGate = new AndGate();
-    this.assertHasNoAbstractMethods( this.andGate );
-  }
+    expect( andGate ).hasNoAbstractMethods();
+  });
 
-  this.testAndGateReturnsTrueWhenNoInputsGiven = function () {
+  it('returns true when no inputs are given', function () {
     var andGate = new AndGate();
+    expect( andGate.calculate() ).toEqual( 5 );
+  });
 
-    this.assertValueEqualsExpected( andGate.calculate(), 5, 'The and gate should return true when no inputs given.' );
-  }
-
-  this.testAndGateReturnsTrue = function () {
-    var andGate = new AndGate();
-
-    andGate.addInput( this.trueMock );
-    andGate.addInput( this.trueMock );
-
-    this.assertValueEqualsExpected( andGate.calculate(), 5, 'The and gate should return true.' );
-  }
-
-  this.testAndGateReturnsTrueWithManyInput = function () {
+  it('returns true', function () {
     var andGate = new AndGate();
 
-    andGate.addInput( this.trueMock );
-    andGate.addInput( this.trueMock );
-    andGate.addInput( this.trueMock );
-    andGate.addInput( this.trueMock );
+    andGate.addInput( trueMock );
+    andGate.addInput( trueMock );
 
-    this.assertValueEqualsExpected( andGate.calculate(), 5, 'The and gate should return true.' );
-  }
+    expect( andGate.calculate() ).toEqual( 5 );
+  });
 
-  this.testAndGateReturnsFalse = function () {
+  it('returns true when given many inputs', function () {
     var andGate = new AndGate();
 
-    andGate.addInput( this.trueMock );
-    andGate.addInput( this.falseMock );
+    andGate.addInput( trueMock );
+    andGate.addInput( trueMock );
+    andGate.addInput( trueMock );
+    andGate.addInput( trueMock );
 
-    this.assertValueEqualsExpected( andGate.calculate(), 0, 'The and gate should return false.' );
-  }
+    expect( andGate.calculate() ).toEqual( 5 );
+  });
 
-  this.testAndGateReturnsTrueWhenReset = function () {
+  it('returns false', function () {
     var andGate = new AndGate();
 
-    andGate.addInput( this.falseMock );
-    andGate.addInput( this.falseMock );
+    andGate.addInput( trueMock );
+    andGate.addInput( falseMock );
+
+    expect( andGate.calculate() ).toEqual( 0 );
+  });
+
+  it('returns true when reset', function () {
+    var andGate = new AndGate();
+
+    andGate.addInput( falseMock );
+    andGate.addInput( falseMock );
 
     andGate.reset();
 
-    this.assertValueEqualsExpected( andGate.calculate(), 5, 'The and gate should return true.' );
-  }
+    expect( andGate.calculate() ).toEqual( 5 );
+  });
 
-  this.testAndGateReturnsTrueWhenRemovingInputs = function () {
+  it('returns true when removing inputs', function () {
     var andGate = new AndGate();
 
-    andGate.addInput( this.trueMock );
-    andGate.addInput( this.falseMock );
+    andGate.addInput( trueMock );
+    andGate.addInput( falseMock );
 
     andGate.removeInput( 1 );
 
-    this.assertValueEqualsExpected( andGate.calculate(), 5, 'The and gate should return true after removing false input.' );
-  }
+    expect( andGate.calculate() ).toEqual( 5 );
+  });
 
-  this.testAndGateReturnsFalseWhenRemovingInputs = function () {
+  it('returns false when removing inputs', function () {
     var andGate = new AndGate();
 
-    andGate.addInput( this.trueMock );
-    andGate.addInput( this.falseMock );
+    andGate.addInput( trueMock );
+    andGate.addInput( falseMock );
 
     andGate.removeInput( 0 );
 
-    this.assertValueEqualsExpected( andGate.calculate(), 0, 'The and gate should return false after removing true input.' );
-  }
-}();
+    expect( andGate.calculate() ).toEqual( 0 );
+  });
+
+});

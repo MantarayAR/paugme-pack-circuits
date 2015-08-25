@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/MantarayAR/paugme-pack-circuits/issues"
   },
-  "homepage": "https://github.com/MantarayAR/paugme-pack-circuits#readme"
+  "homepage": "https://github.com/MantarayAR/paugme-pack-circuits#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jasmine": "^2.0.1"
+  }
 }

@@ -1,3 +1,4 @@
+var NotImplementedException = require('../exceptions/not-implemented-exception');
 
 Class = {};
 
@@ -31,3 +32,5 @@ Class.implement = function ( obj, that ) {
 }
 
 Object.prototype.Class = Class;
+
+module.exports = Class;

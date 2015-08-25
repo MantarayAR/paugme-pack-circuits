@@ -1,82 +1,88 @@
-+new function OrGateTests() {
-  isAUnitTest.call( this );
+var MockInputs              = require('../mocks/mock-inputs');
+var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
+var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
+var OrGate                  = require('../../src/circuit-components/or-gate');
+var AbstractMatcher         = require('../matchers/abstract-matcher');
 
-  this.setup = function () {
-    this.trueMock = new TrueLogicMockComponent();
-    this.falseMock = new FalseLogicMockComponent();
-  }
+describe('an or gate', function () {
+  var trueMock;
+  var falseMock;
 
-  this.testAndGateHasNoAbstractMethods = function () {
+  beforeEach(function() {
+    trueMock  = new TrueLogicMockComponent();
+    falseMock = new FalseLogicMockComponent();
+    jasmine.addMatchers( AbstractMatcher );
+  });
+
+  it('has no abstract methods', function () {
     var orGate = new OrGate();
-    this.assertHasNoAbstractMethods( this.orGate );
-  }
+    expect( orGate ).hasNoAbstractMethods();
+  });
 
-  this.testOrGateReturnsFalseWhenNoInputs = function () {
+  it('returns false when no inputs given', function () {
     var orGate = new OrGate();
+    expect( orGate.calculate() ).toEqual( 0 ); 
+  });
 
-    this.assertValueEqualsExpected( orGate.calculate(), 0, 'The or gate should return false when no inputs given.' );
-  }
-
-  this.testOrGateReturnsTrue = function () {
+  it('returns true', function () {
     var orGate = new OrGate();
+    orGate.addInput( trueMock );
+    orGate.addInput( falseMock );
 
-    orGate.addInput( this.trueMock );
-    orGate.addInput( this.falseMock );
+    expect( orGate.calculate() ).toEqual( 5 );
+  });
 
-    this.assertValueEqualsExpected( orGate.calculate(), 5, 'The or gate should return true.' );
-  }
-
-  this.testOrGateReturnsTrueWithManyInput = function () {
-    var orGate = new OrGate();
-
-    orGate.addInput( this.falseMock );
-    orGate.addInput( this.falseMock );
-    orGate.addInput( this.falseMock );
-    orGate.addInput( this.trueMock );
-    orGate.addInput( this.falseMock );
-
-    this.assertValueEqualsExpected( orGate.calculate(), 5, 'The or gate should return true.' );
-  }
-
-  this.testOrGateReturnsFalse = function () {
+  it('returns true when many inputs given', function () {
     var orGate = new OrGate();
 
-    orGate.addInput( this.falseMock );
-    orGate.addInput( this.falseMock );
+    orGate.addInput( falseMock );
+    orGate.addInput( falseMock );
+    orGate.addInput( falseMock );
+    orGate.addInput( trueMock );
+    orGate.addInput( falseMock );
 
-    this.assertValueEqualsExpected( orGate.calculate(), 0, 'The or gate should return false.' );
-  }
+    expect( orGate.calculate() ).toEqual( 5 );
+  });
 
-  this.testOrGateReturnsFalseAfterResetting = function () {
+  it('returns false', function () {
     var orGate = new OrGate();
 
-    orGate.addInput( this.trueMock );
-    orGate.addInput( this.trueMock );
+    orGate.addInput( falseMock );
+    orGate.addInput( falseMock );
+
+    expect( orGate.calculate() ).toEqual( 0 );
+  });
+
+  it('returns false after resetting', function () {
+    var orGate = new OrGate();
+
+    orGate.addInput( trueMock );
+    orGate.addInput( trueMock );
 
     orGate.reset();
 
-    this.assertValueEqualsExpected( orGate.calculate(), 0, 'The or gate should return false after being reset.' );
-  }
+    expect( orGate.calculate() ).toEqual( 0 );
+  });
 
-  this.testOrGateReturnsTrueWhenRemovingInputs = function () {
+  it('returns true after removing inputs', function () {
     var orGate = new OrGate();
 
-    orGate.addInput( this.trueMock );
-    orGate.addInput( this.falseMock );
+    orGate.addInput( trueMock );
+    orGate.addInput( falseMock );
 
     orGate.removeInput( 1 );
 
-    this.assertValueEqualsExpected( orGate.calculate(), 5, 'The or gate should return true after removing false input.' );
-  }
+    expect( orGate.calculate() ).toEqual( 5 );
+  });
 
-  this.testAndGateReturnsFalseWhenRemovingInputs = function () {
+  it('returns false after removing inputs', function () {
     var orGate = new OrGate();
 
-    orGate.addInput( this.trueMock );
-    orGate.addInput( this.falseMock );
+    orGate.addInput( trueMock );
+    orGate.addInput( falseMock );
 
     orGate.removeInput( 0 );
 
-    this.assertValueEqualsExpected( orGate.calculate(), 0, 'The or gate should return false after removing true input.' );
-  }
-}();
+    expect( orGate.calculate() ).toEqual( 0 );
+  });
+});

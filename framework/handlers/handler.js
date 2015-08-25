@@ -1,4 +1,4 @@
 
-function Handler () {
+module.exports = function Handler() {
   
 }

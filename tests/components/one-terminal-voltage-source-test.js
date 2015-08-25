@@ -1,17 +1,18 @@
-+new function OneTerminalVoltageSourceTests() {
-  isAUnitTest.call( this );
+var OneTerminalVoltageSource = require('../../src/circuit-components/one-terminal-voltage-source');
+var AbstractMatcher          = require('../matchers/abstract-matcher');
 
-  this.setup = function () {
-    this.voltageSource = new OneTerminalVoltageSource();
-  }
+describe('a one terminal voltage source', function () {
+  beforeEach(function() {
+    jasmine.addMatchers( AbstractMatcher );
+  });
 
-  this.testSourceHasNoAbstractMethods = function () {
-    this.assertHasNoAbstractMethods( this.voltageSource );
-  }
+  it('has no abstract methods', function () {
+    var voltageSource = new OneTerminalVoltageSource();
+    expect( voltageSource ).hasNoAbstractMethods();
+  });
 
-  this.testSourceIsFiveVolts = function () {
-    var voltage = this.voltageSource.calculate();
-
-    this.assertValueEqualsExpected( voltage, 5, 'The voltage source should always be 5 volts.' );
-  }
-};
+  it('is five volts', function () {
+    var voltageSource = new OneTerminalVoltageSource();
+    expect( voltageSource.calculate() ).toEqual( 5 );
+  })
+});

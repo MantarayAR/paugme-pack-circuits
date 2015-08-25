@@ -1,42 +1,40 @@
-+new function LogicHandlerTests() {
-  isAUnitTest.call( this );
+var LogicHandler = require('../../src/handlers/logic-handler');
 
-  this.setup = function () {
-    this.logicHandler = new LogicHandler();
-  }
-
-  this.testLogicHandlerCorrectlyMapsBooleans = function () {
+describe('the logic handler', function () {
+  it('correctly map booleans', function () {
     var data;
+    var logicHandler = new LogicHandler();
 
-    data = this.logicHandler.toBoolean( 5 );
-    this.assertValueEqualsExpected( data, true );
+    data = logicHandler.toBoolean( 5 );
+    expect( data ).toEqual( true );
 
-    data = this.logicHandler.toBoolean( 4 );
-    this.assertValueEqualsExpected( data, true );
+    data = logicHandler.toBoolean( 4 );
+    expect( data ).toEqual( true );
 
-    data = this.logicHandler.toBoolean( 1000 );
-    this.assertValueEqualsExpected( data, true );
+    data = logicHandler.toBoolean( 1000 );
+    expect( data ).toEqual( true );
 
-    data = this.logicHandler.toBoolean( 2.5 + this.logicHandler.VOLTAGE_TOLERANCE );
-    this.assertValueEqualsExpected( data, false );
+    data = logicHandler.toBoolean( 2.5 + logicHandler.VOLTAGE_TOLERANCE );
+    expect( data ).toEqual( false );
 
-    data = this.logicHandler.toBoolean( 2.5 );
-    this.assertValueEqualsExpected( data, false );
+    data = logicHandler.toBoolean( 2.5 );
+    expect( data ).toEqual( false );
 
-    data = this.logicHandler.toBoolean( 1 );
-    this.assertValueEqualsExpected( data, false );
+    data = logicHandler.toBoolean( 1 );
+    expect( data ).toEqual( false );
 
-    data = this.logicHandler.toBoolean( 0 );
-    this.assertValueEqualsExpected( data, false );
-  }
+    data = logicHandler.toBoolean( 0 );
+    expect( data ).toEqual( false );
+  });
 
-  this.testLogicHandlerCorrectlyMapsVoltages = function () {
+  it('correctly maps voltages', function () {
     var data;
+    var logicHandler = new LogicHandler();
 
-    data = this.logicHandler.toVoltage( true );
-    this.assertValueEqualsExpected( data, 5 );
+    data = logicHandler.toVoltage( true );
+    expect( data ).toEqual( 5 );
 
-    data = this.logicHandler.toVoltage( false );
-    this.assertValueEqualsExpected( data, 0 );
-  }
-}
+    data = logicHandler.toVoltage( false );
+    expect( data ).toEqual( 0 );
+  });
+});

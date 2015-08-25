@@ -1,5 +1,9 @@
+var Class        = require('../../framework/class/class.js');
+var Component    = require('../../framework/components/component.js');
+var Gate         = require('../../framework/components/gate.js');
+var LogicHandler = require('../handlers/logic-handler.js');
 
-function AndGate() {
+module.exports = function AndGate() {
   this.Class.extend( Component, this );
   this.Class.implement( Gate, this );
 
@@ -14,4 +18,4 @@ function AndGate() {
 
     return this.logicHandler.toVoltage( value );
   }
-}
+};

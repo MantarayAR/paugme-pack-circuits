@@ -1,29 +1,42 @@
-+new function GroundTests() {
-  isAUnitTest.call( this );
+var MockInputs              = require('../mocks/mock-inputs');
+var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
+var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
+var Ground                  = require('../../src/circuit-components/ground');
+var AbstractMatcher         = require('../matchers/abstract-matcher');
 
-  this.setup = function () {
-    this.trueMock = new TrueLogicMockComponent();
-    this.falseMock = new FalseLogicMockComponent();
-  }
+describe('the ground', function () {
+  var trueMock;
+  var falseMock;
 
-  this.testGroundHasNoAbstractMethods = function () {
-    this.assertHasNoAbstractMethods( this.ground );
-  }
+  beforeEach(function () {
+    trueMock = new TrueLogicMockComponent();
+    falseMock = new FalseLogicMockComponent();
+    jasmine.addMatchers( AbstractMatcher );
+  });
 
-  this.testGroundPassesVoltage = function() {
+  it('has no abstract mathods', function () {
     var ground = new Ground();
-    ground.addInput( this.trueMock );
-    this.assertValueEqualsExpected( ground.calculate(), 5 );
+
+    expect(ground).hasNoAbstractMethods();
+  });
+
+  it('passes voltage', function () {
+    var ground = new Ground();
+    ground.addInput( trueMock );
+    expect( ground.calculate() ).toEqual( 5 );
 
     ground = new Ground();
-    ground.addInput( this.falseMock );
-    this.assertValueEqualsExpected( ground.calculate(), 0 );
-  }
+    ground.addInput( falseMock );
+    expect( ground.calculate() ).toEqual( 0 );
+  });
 
-  this.testGroundPassesMaxVoltage = function () {
+  // TODO is this physically correct?
+  it('passes the max voltage passed through it', function () {
     var ground = new Ground();
-    ground.addInput( this.trueMock );
-    ground.addInput( this.falseMock );
-    this.assertValueEqualsExpected( ground.calculate(), 5 );
-  }
-}
+    ground.addInput( falseMock );
+    ground.addInput( trueMock );
+
+    expect( ground.calculate() ).toEqual( 5 );
+  });
+
+});

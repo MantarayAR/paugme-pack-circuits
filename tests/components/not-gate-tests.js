@@ -1,71 +1,75 @@
-+new function NotGateTests() {
-  isAUnitTest.call( this );
+var MockInputs              = require('../mocks/mock-inputs');
+var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
+var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
+var NotGate                 = require('../../src/circuit-components/not-gate');
+var AbstractMatcher         = require('../matchers/abstract-matcher');
 
-  this.setup = function () {
-    this.trueMock = new TrueLogicMockComponent();
-    this.falseMock = new FalseLogicMockComponent();
-  }
+describe('a not gate', function () {
+  var trueMock;
+  var falseMock;
 
-  this.testNotGateHasNoAbstractMethods = function () {
+  beforeEach(function() {
+    trueMock  = new TrueLogicMockComponent();
+    falseMock = new FalseLogicMockComponent();
+    jasmine.addMatchers( AbstractMatcher );
+  });
+
+  it('has no abstract methods', function () {
     var notGate = new NotGate();
-    this.assertHasNoAbstractMethods( this.notGate );
-  }
+    expect( notGate ).hasNoAbstractMethods();
+  });
 
-  this.testNotGateReturnsTrueWhenNoInputs = function () {
-    var notGate = new NotGate();
-
-    this.assertValueEqualsExpected( notGate.calculate(), 5, 'The not gate should return true when no inputs are given.' );
-  }
-
-  this.testNotGateReturnsTrue = function () {
-    var notGate = new NotGate();
-
-    notGate.addInput( this.falseMock );
-
-    this.assertValueEqualsExpected( notGate.calculate(), 5, 'The not gate should return true.' );
-  }
-
-  this.testNotGateReturnsFalse = function () {
+  it('returns true when no inputs are given', function () {
     var notGate = new NotGate();
 
-    notGate.addInput( this.trueMock );
+    expect( notGate.calculate() ).toEqual( 5 );
+  });
 
-    this.assertValueEqualsExpected( notGate.calculate(), 0, 'The not gate should return false.' );
-  }
-
-  this.testNotGateReturnsTrueAfterRemovingInput = function () {
+  it('returns true', function () {
     var notGate = new NotGate();
 
-    notGate.addInput( this.trueMock );
+    notGate.addInput( falseMock );
 
-    notGate.removeInput( 0 );
+    expect( notGate.calculate() ).toEqual( 5 );
+  });
 
-    this.assertValueEqualsExpected( notGate.calculate(), 5, 'The not gate should return true after removing input.' );
-  }
-
-  this.testNotGateReturnsTrueAfterReset = function () {
+  it('returns false', function () {
     var notGate = new NotGate();
 
-    notGate.addInput( this.trueMock );
+    notGate.addInput( trueMock );
 
+    expect( notGate.calculate() ).toEqual( 0 );
+  });
+
+  it('returns true after reset', function () {
+    var notGate = new NotGate();
+    notGate.addInput( trueMock );
     notGate.reset();
 
-    this.assertValueEqualsExpected( notGate.calculate(), 5, 'The not gate should return true after being reset.' );
-  }
+    expect( notGate.calculate() ).toEqual( 5 );
+  });
 
-  this.testNotGateUnAffectedBySecondaryInputs = function () {
+  it('returns true after removing an input', function () {
     var notGate = new NotGate();
+    notGate.addInput( trueMock );
+    notGate.removeInput( 0 );
 
-    notGate.addInput( this.trueMock );
-    notGate.addInput( this.falseMock );
+    expect( notGate.calculate() ).toEqual( 5 );
+  });
 
-    this.assertValueEqualsExpected( notGate.calculate(), 0, 'The not gate should be false. ' );
+  it('is not affected by secondary inputs', function () {
+     var notGate = new NotGate();
+
+    notGate.addInput( trueMock );
+    notGate.addInput( falseMock );
+
+    expect( notGate.calculate() ).toEqual( 0 );
 
     notGate = new NotGate();
 
-    notGate.addInput( this.trueMock );
-    notGate.addInput( this.trueMock );
+    notGate.addInput( trueMock );
+    notGate.addInput( trueMock );
 
-    this.assertValueEqualsExpected( notGate.calculate(), 0, 'The not gate should be false. ' );
-  }
-}
+    expect( notGate.calculate() ).toEqual( 0 );
+  });
+});
