@@ -1,0 +1,27 @@
+{
+  "name": "paugme-pack-circuits",
+  "version": "0.0.1",
+  "description": "Circuits application for Paugme Packs",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MantarayAR/paugme-pack-circuits.git"
+  },
+  "keywords": [
+    "javascript",
+    "npm",
+    "circuits"
+  ],
+  "author": "Ivan Montiel <idmontie@asu.edu> (https://github.com/idmontie)",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/MantarayAR/paugme-pack-circuits/issues"
+  },
+  "homepage": "https://github.com/MantarayAR/paugme-pack-circuits#readme"
+}
