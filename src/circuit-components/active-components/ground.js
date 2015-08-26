@@ -1,6 +1,6 @@
-var Class        = require('../../framework/class/class.js');
-var Component    = require('../../framework/components/component.js');
-var Gate         = require('../../framework/components/gate.js');
+var Class        = require('../../../framework/class/class.js');
+var Component    = require('../../../framework/components/component.js');
+var Gate         = require('../../../framework/components/gate.js');
 
 module.exports = function Ground() {
   this.Class.extend( Component, this );

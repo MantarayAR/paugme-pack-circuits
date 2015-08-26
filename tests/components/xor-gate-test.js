@@ -1,7 +1,7 @@
 var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
-var XorGate                 = require('../../src/circuit-components/xor-gate');
+var XorGate                 = require('../../src/circuit-components/logic-components/xor-gate');
 var AbstractMatcher         = require('../matchers/abstract-matcher');
 
 describe('a xor gate', function () {

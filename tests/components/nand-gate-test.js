@@ -1,7 +1,7 @@
 var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
-var NandGate                = require('../../src/circuit-components/nand-gate');
+var NandGate                = require('../../src/circuit-components/logic-components/nand-gate');
 var AbstractMatcher         = require('../matchers/abstract-matcher');
 
 describe('a nand gate', function () {

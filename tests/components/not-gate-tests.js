@@ -1,7 +1,7 @@
 var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
-var NotGate                 = require('../../src/circuit-components/not-gate');
+var NotGate                 = require('../../src/circuit-components/logic-components/not-gate');
 var AbstractMatcher         = require('../matchers/abstract-matcher');
 
 describe('a not gate', function () {
