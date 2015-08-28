@@ -44,4 +44,16 @@ describe('the switch', function () {
     expect( switchComp.calculate() ).toEqual( 0 );
   });
 
+  it('toggles', function () {
+    var switchComp = new Switch();
+    switchComp.addInput( trueMock );
+    switchComp.turnOff();
+    expect( switchComp.calculate() ).toEqual( 0 );
+
+    switchComp.toggle();
+    expect( switchComp.calculate() ).toEqual( 5 );
+
+    switchComp.toggle();
+    expect( switchComp.calculate() ).toEqual( 0 );
+  });
 });
