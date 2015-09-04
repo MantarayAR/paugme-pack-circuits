@@ -24,7 +24,7 @@ module.exports = function Switch() {
     if ( this.state ) {
       var results = [];
       for ( var i = 0; i < this.inputs.length; i++ ) {
-        results.push( this.inputs[i].calculate() );
+        results.push( this.inputs[i].run() );
       }
       return results[0];
     } else {

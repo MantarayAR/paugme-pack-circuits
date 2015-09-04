@@ -9,7 +9,7 @@ module.exports = function Ground() {
   this.calculate = function () {
     var maxValue = Number.NEGATIVE_INFINITY;
     for ( var i = 0; i < this.inputs.length; i++ ) {
-      var currentValue = this.inputs[i].calculate();
+      var currentValue = this.inputs[i].run();
 
       if ( currentValue > maxValue ) {
         maxValue = currentValue;

@@ -13,7 +13,7 @@ module.exports = function NotGate() {
     var value = true;
 
     if ( this.inputs.length > 0 ) {
-      value = ! this.logicHandler.toBoolean( this.inputs[0].calculate() );
+      value = ! this.logicHandler.toBoolean( this.inputs[0].run() );
     }
 
     return this.logicHandler.toVoltage( value );

@@ -13,7 +13,7 @@ module.exports = function NorGate() {
     var value = 0;
 
     for ( var i = 0; i < this.inputs.length; i++ ) {
-      value += this.inputs[i].calculate();
+      value += this.inputs[i].run();
     }
 
     value = this.logicHandler.toBoolean( value );

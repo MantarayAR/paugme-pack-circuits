@@ -13,7 +13,7 @@ module.exports = function OrGate() {
     var value = false;
 
     for ( var i = 0; i < this.inputs.length; i++ ) {
-      value |= this.logicHandler.toBoolean( this.inputs[i].calculate() );
+      value |= this.logicHandler.toBoolean( this.inputs[i].run() );
     }
 
     return this.logicHandler.toVoltage( value );

@@ -14,7 +14,7 @@ module.exports = function NandGate() {
 
     for ( var i = 0; i < this.inputs.length; i++ ) {
       var result = this.logicHandler.toBoolean(
-        this.inputs[i].calculate()
+        this.inputs[i].run()
       );
 
       inputs.push( result );      

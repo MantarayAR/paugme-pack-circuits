@@ -13,7 +13,7 @@ module.exports = function XorGate() {
     var value = true;
 
     for ( var i = 0; i < this.inputs.length; i++ ) {
-      value = ! value ^ ! this.logicHandler.toBoolean( this.inputs[i].calculate() );
+      value = ! value ^ ! this.logicHandler.toBoolean( this.inputs[i].run() );
     }
 
     return this.logicHandler.toVoltage( value );
