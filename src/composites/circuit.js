@@ -1,6 +1,8 @@
 module.exports = function Circuit() {
   var components = [];
-  var watchers = [];
+  var watchers   = [];
+  var inputs     = [];
+  var outputs    = [];
 
   this.add = function ( component ) {
     components.push( component );
@@ -26,11 +28,26 @@ module.exports = function Circuit() {
     return {
       to : function ( into ) {
         into.addInput( from );
+      },
+      toInput : function ( label ) {
+        var component = inputs[ label ];
+
+        if ( component ) {
+          component.addInput( from );
+        }
+      },
+      toOutput: function ( label ) {
+        var component = outputs[ label ];
+
+        if ( component ) {
+          from.addInput( component );
+        }
       }
     }
   }
 
   this.disconnect = function ( component ) {
+    var that = this;
     return {
       from : function ( from ) {
         for ( var i = 0; i < from.inputs.length; i++ ) {
@@ -42,7 +59,14 @@ module.exports = function Circuit() {
       },
       fromEverything : function () {
         for ( var i = 0; i < components.length; i++ ) {
-          this.disconnect( component ).from( components[i] );
+          that.disconnect( component ).from( components[i] );
+        }
+      },
+      fromInput : function ( label ) {
+        var input = inputs[ label ];
+
+        if ( input ) {
+          that.disconnect( component ).from( input );
         }
       }
     }
@@ -66,5 +90,13 @@ module.exports = function Circuit() {
 
   this.numberOfComponents = function () {
     return components.length;
+  };
+
+  this.setInput = function ( component, label ) {
+    inputs[ label ] = component;
+  };
+
+  this.setOutput = function ( component, label ) {
+    outputs[ label ] = component;
   };
 };

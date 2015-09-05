@@ -2,6 +2,7 @@ var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
 var AndGate = require('../../src/circuit-components/logic-components/and-gate');
+var OrGate = require('../../src/circuit-components/logic-components/or-gate');
 var NorGate = require('../../src/circuit-components/logic-components/nor-gate');
 var Ground  = require('../../src/circuit-components/active-components/ground');
 var Circuit = require('../../src/composites/circuit');
@@ -154,5 +155,148 @@ describe( 'a circuit', function () {
 
     watchers = circuit.run();
     expect( watchers[0] ).toEqual( 0 );
+  });
+
+  it('disconnects a component when it is removed', function () {
+    var trueMock = new TrueLogicMockComponent();
+    var falseMock = new FalseLogicMockComponent();
+    var orGate = new OrGate();
+    var ground = new Ground();
+
+    var circuit = new Circuit();
+
+    circuit.add( trueMock );
+    circuit.add( falseMock );
+    circuit.add( orGate );
+    circuit.add( ground ).watch();
+
+    circuit.connect( trueMock ).to( orGate );
+    circuit.connect( falseMock ).to( orGate );
+    circuit.connect( orGate ).to( ground );
+
+    var watchers = circuit.run();
+    expect( watchers[0] ).toBe( 5 );
+
+    circuit.remove( trueMock );
+
+    circuit.tick();
+    var watchers = circuit.run();
+    expect( watchers[0] ).toBe( 0 );
+  });
+
+  it('can have multiple watchers', function () {
+    var trueMock = new TrueLogicMockComponent();
+    var falseMock = new FalseLogicMockComponent();
+    var orGate = new OrGate();
+    var ground = new Ground();
+
+    var circuit = new Circuit();
+
+    circuit.add( trueMock ).watch();
+    circuit.add( falseMock ).watch();
+    circuit.add( orGate );
+    circuit.add( ground ).watch();
+
+    circuit.connect( trueMock ).to( orGate );
+    circuit.connect( falseMock ).to( orGate );
+    circuit.connect( orGate ).to( ground );
+
+    var watchers = circuit.run();
+    expect( watchers[0] ).toBe( 5 );
+    expect( watchers[1] ).toBe( 0 );
+    expect( watchers[2] ).toBe( 5 );
+  });
+
+  it('can have inputs and outputs', function () {
+    var trueMock = new TrueLogicMockComponent();
+    var falseMock = new FalseLogicMockComponent();
+    var orGate = new OrGate();
+    var ground = new Ground();
+
+    var circuit = new Circuit();
+
+    circuit.add( orGate );
+
+    circuit.setInput( orGate, 'A' );
+    circuit.setInput( orGate, 'B' );
+
+    circuit.connect( trueMock ).toInput( 'A' );
+    circuit.connect( falseMock ).toInput( 'B' );
+
+    circuit.setOutput( orGate, 'C' );
+
+    circuit.connect( ground ).toOutput( 'C' );
+
+    var result = ground.run();
+
+    expect( result ).toBe( 5 );
+  });
+
+  it('can disconnect inputs', function () {
+    var trueMock = new TrueLogicMockComponent();
+    var falseMock = new FalseLogicMockComponent();
+    var orGate = new OrGate();
+    var ground = new Ground();
+
+    var circuit = new Circuit();
+
+    circuit.add( orGate );
+
+    circuit.setInput( orGate, 'A' );
+    circuit.setInput( orGate, 'B' );
+
+    circuit.connect( trueMock ).toInput( 'A' );
+    circuit.connect( falseMock ).toInput( 'B' );
+
+    circuit.setOutput( orGate, 'C' );
+
+    circuit.connect( ground ).toOutput( 'C' );
+
+    var result = ground.run();
+
+    expect( result ).toBe( 5 );
+
+    ground.tick();
+    circuit.tick();
+
+    circuit.disconnect( trueMock ).fromInput( 'B' );
+
+    var result = ground.run();
+
+    expect( result ).toBe( 0 );
+  });
+
+  it('can reassign outputs', function () {
+    var trueMock = new TrueLogicMockComponent();
+    var falseMock = new FalseLogicMockComponent();
+    var orGate = new OrGate();
+    var ground = new Ground();
+
+    var circuit = new Circuit();
+
+    circuit.add( orGate );
+
+    circuit.setInput( orGate, 'A' );
+    circuit.setInput( orGate, 'B' );
+
+    circuit.connect( falseMock ).toInput( 'A' );
+    circuit.connect( falseMock ).toInput( 'B' );
+
+    circuit.setOutput( orGate, 'C' );
+
+    circuit.connect( ground ).toOutput( 'C' );
+
+    var result = ground.run();
+
+    expect( result ).toBe( 0 );
+
+    ground.tick();
+    circuit.tick();
+
+    circuit.connect( trueMock ).toInput( 'A' );
+
+    var result = ground.run();
+
+    expect( result ).toBe( 5 );
   });
 });

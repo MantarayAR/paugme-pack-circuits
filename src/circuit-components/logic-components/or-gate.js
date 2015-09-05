@@ -18,4 +18,4 @@ module.exports = function OrGate() {
 
     return this.logicHandler.toVoltage( value );
   }
-}
+};

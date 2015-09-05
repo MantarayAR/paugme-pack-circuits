@@ -1,4 +1,4 @@
-var Class = require('../class/class.js');
+var Class = require('../class/class');
 
 module.exports = function Component() {
   this.inputs = [];

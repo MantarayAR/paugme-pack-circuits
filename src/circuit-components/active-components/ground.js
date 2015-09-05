@@ -7,7 +7,7 @@ module.exports = function Ground() {
   this.Class.implement( Gate, this );
 
   this.calculate = function () {
-    var maxValue = Number.NEGATIVE_INFINITY;
+    var maxValue = 0;
     for ( var i = 0; i < this.inputs.length; i++ ) {
       var currentValue = this.inputs[i].run();
 
