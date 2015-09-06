@@ -3,6 +3,7 @@ module.exports = function Circuit() {
   var watchers   = [];
   var inputs     = [];
   var outputs    = [];
+  var overrides  = [];
 
   this.add = function ( component ) {
     components.push( component );
@@ -31,6 +32,11 @@ module.exports = function Circuit() {
       },
       toInput : function ( label ) {
         var component = inputs[ label ];
+        var override = overrides[ label ];
+
+        if ( override ) {
+          component.overrideInputFrom( override ).with( from );
+        }
 
         if ( component ) {
           component.addInput( from );

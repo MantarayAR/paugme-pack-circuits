@@ -2,6 +2,7 @@ var CircuitSpecification = require('../../src/specifications/circuit-specificati
 var Circuit = require('../../src/composites/circuit');
 var AndGate = require('../../src/circuit-components/logic-components/and-gate');
 var OrGate  = require('../../src/circuit-components/logic-components/or-gate');
+var NorGate  = require('../../src/circuit-components/logic-components/nor-gate');
 
 describe('a specification', function () {
   beforeEach(function () {
@@ -9,11 +10,15 @@ describe('a specification', function () {
     this.circuit       = new Circuit();
     this.andGate       = new AndGate();
     this.orGate        = new OrGate();
+    this.norGate1      = new NorGate();
+    this.norGate2      = new NorGate();
   })
 
   it('can be described by a truth table', function () {
+    this.specification.setLabels(
+      'I,J => K'
+    );
     this.specification.setTable(
-      'I,J => K',
       '0,0 => 0',
       '0,1 => 0',
       '1,0 => 0',
@@ -32,8 +37,10 @@ describe('a specification', function () {
   });
 
   it('can fail when given an incorrect circuit', function () {
+    this.specification.setLabels(
+      'I,J => K'
+    );
     this.specification.setTable(
-      'I,J => K',
       '0,0 => 0',
       '0,1 => 0',
       '1,0 => 0',
@@ -51,13 +58,60 @@ describe('a specification', function () {
     expect( result ).toBe( false );
   });
 
-  // it('can specify Q and Qnext type truth tables', function () {
-  //   this.specification.setTable(
-  //     'Q,S,R => N',
-  //     '0,0,0 => X',
-  //     '0,1,0 => 1',
-  //     '1,0,1 => 0',
-  //     '1,X,0 => 1'
-  //   );
-  // })
-})
+  it('can test a flip flop without checking state', function () {
+    this.specification.setLabels(
+      'S,R => Q`'
+    );
+    this.specification.setTable(
+      '0,0 => X',
+      '0,1 => 0',
+      '1,0 => 1',
+      '1,1 => X'
+    );
+
+    this.circuit.add( this.norGate1 );
+    this.circuit.add( this.norGate2 );
+
+    this.circuit.connect( this.norGate1 ).to( this.norGate2 );
+    this.circuit.connect( this.norGate2 ).to( this.norGate1 );
+
+    this.circuit.setInput( this.norGate1, 'R' );
+    this.circuit.setInput( this.norGate2, 'S' );
+    this.circuit.setOutput( this.norGate1, 'Q`' );
+
+    var result = this.specification.isSatisfiedBy(
+      this.circuit
+    );
+
+    expect( result ).toBe( true );
+  });
+
+  it('can test a flip flop by ticking', function () {
+    this.specification.setLabels(
+      'S,R => Q`'
+    );
+    this.specification.setTable(
+      '0,0 => 0 | 0,0 => 0',
+      '1,0 => 1 | 0,0 => 1',
+      '1,0 => 1 | 0,0 => 1 | 0,1 => 0',
+      '0,1 => 0 | 0,0 => 0',
+      '1,1 => X'
+    );
+
+    this.circuit.add( this.norGate1 );
+    this.circuit.add( this.norGate2 );
+
+    this.circuit.connect( this.norGate1 ).to( this.norGate2 );
+    this.circuit.connect( this.norGate2 ).to( this.norGate1 );
+
+    this.circuit.setInput( this.norGate1, 'R' );
+    this.circuit.setInput( this.norGate2, 'S' );
+    this.circuit.setOutput( this.norGate1, 'Q`' );
+
+    var result = this.specification.isSatisfiedBy(
+      this.circuit
+    );
+
+    expect( result ).toBe( true );
+  });
+});

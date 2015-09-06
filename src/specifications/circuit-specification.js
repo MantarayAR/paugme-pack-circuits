@@ -2,55 +2,231 @@ var Class = require('../../framework/class/class');
 var Specification = require('../../framework/specifications/specification');
 var Ground = require('../circuit-components/active-components/ground');
 var OneTerminalVoltageSource = require('../circuit-components/active-components/one-terminal-voltage-source');
+var Factory = require('../../framework/factories/factory');
+/**
+ * Create a Circuit Specification Tick Test
+ */
+function CircuitSpecificationTickTestFactory() {
+  this.Class.extend( Factory, this );
+  var inputLabels;
+  var outputLabels;
+  var inputValues;
+  var outputValues;
+
+  this.setInputLabels = function ( labels ) {
+    inputLabels = labels;
+  }
+
+  this.setOutputLabels = function ( labels ) {
+    outputLabels = labels;
+  }
+
+  this.setInputValues = function ( expectedValues ) {
+    inputValues = expectedValues;
+  }
+
+  this.setOutputValues = function ( expectedValues ) {
+    outputValues = expectedValues;
+  }
+
+  this.build = function () {
+    var tickTest = new CircuitSpecificationTickTest(
+      inputLabels,
+      outputLabels,
+      inputValues,
+      outputValues
+    );
+
+    return tickTest;
+  }
+}
+
+/**
+ * Create Circuit Specification Tests
+ */
+function CircuitSpecificationTestFactory() {
+  this.Class.extend( Factory, this );
+
+  var ticks = [];
+
+  this.getTickFactory = function () {
+    return new CircuitSpecificationTickTestFactory();
+  }
+
+  this.addTick = function ( tick ) {
+    ticks.push( tick );
+  }
+
+  this.build = function () {
+    var tickTest = new CircuitSpecificationTest(
+      ticks
+    );
+
+    return tickTest;
+  }
+}
+
+function CircuitSpecificationTickTest( inputLabels, outputLabels, inputValues, outputValues ) {
+  this.Class.extend( Specification, this );
+  this.inputLabels = inputLabels;
+  this.outputLabels = outputLabels;
+  this.inputValues = inputValues;
+  this.outputValues = outputValues;
+
+  this.isSatisfiedBy = function( circuit ) {
+    var passesSpec = true;
+    var i = 0;
+    var cleanUp = {
+      inputs : {},
+      outputs : {}
+    };
+
+    for ( i = 0; i < this.inputValues.length; i++ ) {
+      var inputValue = this.inputValues[ i ];
+      var inputLabel = this.inputLabels[ i ];
+      var component = new Ground();
+
+      if ( inputValue === '1' ) {
+        component = new OneTerminalVoltageSource();
+      }
+
+      circuit.connect( component ).toInput( inputLabel );
+      cleanUp.inputs[ inputLabel ] = component;
+    }
+
+    for ( i = 0; i < this.outputValues.length; i++ ) {
+      var outputValue = this.outputValues[ i ];
+      var outputLabel = this.outputLabels[ i ];
+      var ground = new Ground();
+
+      circuit.connect( ground ).toOutput( outputLabel );
+      cleanUp.outputs[ outputLabel ] = component;
+
+      var result = ground.run();
+
+      // If any mapping is not correct, fail
+      if ( parseInt( outputValue ) === 1 &&
+           result === 5 ) {
+        // nothing
+      } else if ( parseInt( outputValue ) === 0 &&
+           result === 0 ) {
+        // nothing
+      } else if ( outputValue === 'X' ) {
+        // nothing
+      } else {
+        passesSpec = false;
+        break;
+      }
+    }
+
+    // Clean up
+    for ( var label in cleanUp.inputs ) {
+      if ( cleanUp.inputs.hasOwnProperty( label ) ) {
+        circuit.disconnect( cleanUp.inputs[ label ] ).fromInput( label );
+      }
+    }
+
+    for ( var label in cleanUp.outputs ) {
+      if ( cleanUp.outputs.hasOwnProperty( label ) ) {
+        circuit.disconnect( cleanUp.outputs[ label ] ).fromInput( label );
+      }
+    }
+
+    return passesSpec;
+  }
+}
+
+/**
+ * Test a given circuit
+ *
+ * A circuit specification test consists
+ * of one or more sequential tick tests
+ */
+function CircuitSpecificationTest( tickTests ) {
+  this.Class.extend( Specification, this );
+  this.tickTests = tickTests;
+
+  this.isSatisfiedBy = function( circuit ) {
+    var passesSpec = true;
+
+    for ( var i = 0; i < this.tickTests.length; i++ ) {
+      var tickTest = this.tickTests[i];
+
+      passesSpec = tickTest.isSatisfiedBy( circuit );
+
+      if ( ! passesSpec ) {
+        break;
+      }
+
+      circuit.tick();
+    }
+
+    return passesSpec;
+  }
+};
 
 module.exports = function CircuitSpecification() {
   this.Class.extend( Specification, this );
 
-  var mapping;
-  var DELIMITER = '=>';
-  var SEPARATOR = ',';
+  var tests = [];
+  var inputLabels;
+  var outputLabels;
+  var DELIMITERS = {
+    OUTPUT : '=>',
+    ARGUMENT: ',',
+    TICK: '|',
+  };
 
+  /**
+   * Trim helper function
+   */
   function trim( s ) {
     return s.trim();
   };
 
   function parseLabels( row ) {
-    var split = row.split( DELIMITER ).map(trim);
+    var split = row.split( DELIMITERS.OUTPUT ).map(trim);
 
     var inputs = split[0];
     var outputs = split[1];
-    mapping.inputLabels = inputs.split( SEPARATOR ).map( trim );
-    mapping.outputLabels = outputs.split( SEPARATOR ).map( trim );
-  };
-
-  function parseTests( rows ) {
-    for ( var i = 0; i < rows.length; i++ ) {
-      var row = rows[i];
-      var split = row.split( DELIMITER ).map(trim);
-      var inputs = split[0];
-      var outputs = split[1];
-
-      mapping.tests.push({
-        inputs: inputs.split( SEPARATOR ).map( trim ),
-        outputs: outputs.split( SEPARATOR ).map( trim )
-      });
-    }
+    inputLabels = inputs.split( DELIMITERS.ARGUMENT ).map( trim );
+    outputLabels = outputs.split( DELIMITERS.ARGUMENT ).map( trim );
   };
 
   function parseTable( data ) {
-    // data[0] is the functional mapping
-    // each entry after that is a value map
+    for ( var i = 0; i < data.length; i++ ) {
+      var row   = data[i];
+      var ticks = row.split( DELIMITERS.TICK ).map( trim );
 
-    mapping = {
-      inputLabels : [],
-      outputLabels : [],
-      tests : []
-    };
+      var factory = new CircuitSpecificationTestFactory();
 
-    if ( data.length > 0 ) {
-      parseLabels( data[0] );
-      parseTests( data.slice( 1 ) );
+      for ( var tickIndex = 0; tickIndex < ticks.length; tickIndex++ ) {
+        var tick = ticks[tickIndex];
+        var tickFactory = factory.getTickFactory();
+
+        tickTest = getTestsFromTick( tick, tickFactory );
+        factory.addTick( tickTest );
+      }
+
+      var test = factory.build();
+      tests.push( test );
     }
+  };
+
+  function getTestsFromTick( tick, tickFactory ) {
+    var parts = tick.split( DELIMITERS.OUTPUT ).map( trim );
+    var inputValues = parts[0].split( DELIMITERS.ARGUMENT ).map( trim );
+    var outputValues = parts[1].split( DELIMITERS.ARGUMENT ).map( trim );
+
+    tickFactory.setInputLabels( inputLabels );
+    tickFactory.setOutputLabels( outputLabels );
+    tickFactory.setInputValues( inputValues );
+    tickFactory.setOutputValues( outputValues );
+    return tickFactory.build();
+  }
+
+  this.setLabels = function ( labelString ) {
+    parseLabels( labelString );
   };
 
   this.setTable = function () {
@@ -59,72 +235,18 @@ module.exports = function CircuitSpecification() {
   }
 
   this.isSatisfiedBy = function ( circuit ) {
-    var meetsSpec = true;
-    var cleanUp = {
-      inputs : {},
-      outputs : {}
-    };
+    var passesSpec = true;
 
-    // For each entry, map the values to the
-    // labels that match the functional mapping
-    mapping:
-    for ( var i = 0; i < mapping.tests.length && meetsSpec; i++ ) {
-      var test = mapping.tests[ i ];
+    for ( var i = 0; i < tests.length; i++ ) {
+      var test = tests[i];
 
-      for ( var inputIndex = 0; inputIndex < test.inputs.length; inputIndex++ ) {
-        var inputValue = test.inputs[ inputIndex ];
-        var inputLabel = mapping.inputLabels[ inputIndex ];
-        var component = new Ground();
+      passesSpec = test.isSatisfiedBy( circuit );
 
-        if ( inputValue === '1' ) {
-          component = new OneTerminalVoltageSource();
-        }
-
-        circuit.connect( component ).toInput( inputLabel );
-        cleanUp.inputs[ inputLabel ] = component;
+      if ( ! passesSpec ) {
+        break;
       }
-
-      for ( var outputIndex = 0; outputIndex < test.outputs.length; outputIndex++ ) {
-        var outputValue = test.outputs[ outputIndex ];
-        var outputLabel = mapping.outputLabels[ outputIndex ];
-        var ground = new Ground();
-
-        circuit.connect( ground ).toOutput( outputLabel );
-        cleanUp.outputs[ outputLabel ] = component;
-
-        var result = ground.run();
-
-        // If any mapping is not correct, fail
-        if ( parseInt( outputValue ) === 1 &&
-             result === 5 ) {
-          // nothing
-        } else if ( parseInt( outputValue ) === 0 &&
-             result === 0 ) {
-          // nothing
-        } else if ( outputValue === 'X' ) {
-          // nothing
-        } else {
-          meetsSpec = false;
-          break;
-        }
-      }
-
-      // Clean up
-      for ( var label in cleanUp.inputs ) {
-        if ( cleanUp.inputs.hasOwnProperty( label ) ) {
-          circuit.disconnect( cleanUp.inputs[ label ] ).fromInput( label );
-        }
-      }
-
-      for ( var label in cleanUp.outputs ) {
-        if ( cleanUp.outputs.hasOwnProperty( label ) ) {
-          circuit.disconnect( cleanUp.outputs[ label ] ).fromInput( label );
-        }
-      }
-
-      circuit.tick();
     }
 
-    return meetsSpec;
+    return passesSpec;
   }
 };
