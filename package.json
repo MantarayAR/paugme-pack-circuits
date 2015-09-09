@@ -1,5 +1,5 @@
 {
-  "name": "MantarayAR/paugme-pack-circuits",
+  "name": "paugme-pack-circuits",
   "version": "0.0.1",
   "description": "Circuits application for Paugme Packs",
   "main": "index.js",
