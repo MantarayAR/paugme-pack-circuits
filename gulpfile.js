@@ -1,6 +1,7 @@
 var gulp    = require('gulp');
 var jasmine = require('gulp-jasmine');
 var cover   = require('gulp-coverage');
+var coveralls = require('gulp-coveralls');
 
 var options = {
   testPaths : [
@@ -27,6 +28,9 @@ gulp.task('default', function () {
              }))
              .pipe( jasmine( options.jasmine ) )
              .pipe(cover.gather())
-             .pipe(cover.format())
+             .pipe(cover.format({
+               reporter: 'lcov'
+             }))
+             .pipe(coveralls())
              .pipe(gulp.dest('coverage'));
 });

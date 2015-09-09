@@ -26,7 +26,8 @@
   "homepage": "https://github.com/MantarayAR/paugme-pack-circuits#readme",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-jasmine": "^2.0.1",
-    "gulp-coverage": "^0.3.36"
+    "gulp-coverage": "^0.3.36",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-jasmine": "^2.0.1"
   }
 }
