@@ -10,10 +10,11 @@ module.exports = function XorGate() {
   this.logicHandler = new LogicHandler();
 
   this.calculate = function () {
-    var value = true;
+    var value = false;
 
     for ( var i = 0; i < this.inputs.length; i++ ) {
-      value = ! value ^ ! this.logicHandler.toBoolean( this.inputs[i].run() );
+      var n = this.logicHandler.toBoolean( this.inputs[i].run() );
+      value = value ? ! n : n;
     }
 
     return this.logicHandler.toVoltage( value );

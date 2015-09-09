@@ -19,42 +19,31 @@ describe('a xor gate', function () {
     expect( xorGate ).hasNoAbstractMethods();
   });
 
-  it('returns true when no inputs given', function () {
+  it('returns false when no inputs given', function () {
     var xorGate = new XorGate();
-    expect( xorGate.calculate() ).toEqual( 5 ); 
+    expect( xorGate.calculate() ).toEqual( 0 ); 
   });
 
   it('returns values expected by its truth table', function () {
     var xorGate = new XorGate();
     xorGate.addInput( falseMock );
     xorGate.addInput( falseMock );
-    expect( xorGate.calculate() ).toEqual( 5 );
-
-    xorGate = new XorGate();
-    xorGate.addInput( trueMock );
-    xorGate.addInput( falseMock );
-    expect( xorGate.calculate() ).toEqual( 0 );
-
-    xorGate = new XorGate();
-    xorGate.addInput( falseMock );
-    xorGate.addInput( trueMock );
     expect( xorGate.calculate() ).toEqual( 0 );
 
     xorGate = new XorGate();
     xorGate.addInput( trueMock );
+    xorGate.addInput( falseMock );
+    expect( xorGate.calculate() ).toEqual( 5 );
+
+    xorGate = new XorGate();
+    xorGate.addInput( falseMock );
     xorGate.addInput( trueMock );
     expect( xorGate.calculate() ).toEqual( 5 );
-  });
 
-  it('returns true when many inputs given', function () {
-    var xorGate = new XorGate();
-
-    xorGate.addInput( falseMock );
-    xorGate.addInput( falseMock );
-    xorGate.addInput( falseMock );
-    xorGate.addInput( falseMock );
-
-    expect( xorGate.calculate() ).toEqual( 5 );
+    xorGate = new XorGate();
+    xorGate.addInput( trueMock );
+    xorGate.addInput( trueMock );
+    expect( xorGate.calculate() ).toEqual( 0 );
   });
 
   it('returns false when many inputs given', function () {
@@ -62,12 +51,23 @@ describe('a xor gate', function () {
 
     xorGate.addInput( falseMock );
     xorGate.addInput( falseMock );
-    xorGate.addInput( trueMock );
+    xorGate.addInput( falseMock );
+    xorGate.addInput( falseMock );
 
     expect( xorGate.calculate() ).toEqual( 0 );
   });
 
-  it('returns true after resetting', function () {
+  it('returns true when many inputs given', function () {
+    var xorGate = new XorGate();
+
+    xorGate.addInput( falseMock );
+    xorGate.addInput( falseMock );
+    xorGate.addInput( trueMock );
+
+    expect( xorGate.calculate() ).toEqual( 5 );
+  });
+
+  it('returns false after resetting', function () {
     var xorGate = new XorGate();
 
     xorGate.addInput( trueMock );
@@ -75,30 +75,30 @@ describe('a xor gate', function () {
 
     xorGate.reset();
 
-    expect( xorGate.calculate() ).toEqual( 5 );
-  });
-
-  it('returns true after removing inputs', function () {
-    var xorGate = new XorGate();
-
-    xorGate.addInput( trueMock );
-    xorGate.addInput( falseMock );
-    xorGate.addInput( falseMock );
-
-    xorGate.removeInput( 0 );
-
-    expect( xorGate.calculate() ).toEqual( 5 );
+    expect( xorGate.calculate() ).toEqual( 0 );
   });
 
   it('returns false after removing inputs', function () {
     var xorGate = new XorGate();
 
     xorGate.addInput( trueMock );
-    xorGate.addInput( trueMock );
+    xorGate.addInput( falseMock );
     xorGate.addInput( falseMock );
 
     xorGate.removeInput( 0 );
 
     expect( xorGate.calculate() ).toEqual( 0 );
+  });
+
+  it('returns true after removing inputs', function () {
+    var xorGate = new XorGate();
+
+    xorGate.addInput( trueMock );
+    xorGate.addInput( trueMock );
+    xorGate.addInput( falseMock );
+
+    xorGate.removeInput( 0 );
+
+    expect( xorGate.calculate() ).toEqual( 5 );
   });
 });
