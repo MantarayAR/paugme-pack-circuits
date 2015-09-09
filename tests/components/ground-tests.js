@@ -30,7 +30,16 @@ describe('the ground', function () {
     expect( ground.calculate() ).toEqual( 0 );
   });
 
-  // TODO is this physically correct?
+  /**
+   * What ACTUALLY happens is that the ground
+   * should drop to 0 voltage (by virtue of being
+   * a circuit).
+   *
+   * What we are doing here though is determining the
+   * output of a circuit by looking at the ground
+   *
+   * In this app, the ground is really a "Logic Out"
+   */
   it('passes the max voltage passed through it', function () {
     var ground = new Ground();
     ground.addInput( falseMock );
