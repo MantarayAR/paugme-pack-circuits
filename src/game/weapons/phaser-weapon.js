@@ -1,5 +1,5 @@
 var Weapon = require('../weapon');
-var Specification = require('../../../framework/specifications/specification');
+var CircuitSpecification = require('../../specifications/circuit-specification');
 
 module.exports = function PhaserWeapon() {
   this.Class.extend( Weapon, this );
@@ -10,7 +10,7 @@ module.exports = function PhaserWeapon() {
    * Satisfiable by an AND gate
    */
   this.getSpecification = function () {
-    var specification = new Specification();
+    var specification = new CircuitSpecification();
 
     specification.setLabels(
       'I,J => K'
