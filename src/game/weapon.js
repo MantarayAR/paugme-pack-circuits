@@ -4,13 +4,14 @@ var Class = require('../../framework/class/class');
 module.exports = function Weapon() {
   this.Class.extend( Item, this );
   this.name = 'weapon';
+  this.enabled = false;
 
   this.enable = function () {
-    // TODO
+    this.enabled = true;
   };
 
   this.disable = function () {
-    // TODO
+    this.enabled = false;
   };
 
   this.getSpecification = Class.abstractMethod;

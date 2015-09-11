@@ -1,0 +1,10 @@
+module.exports = {
+  NORTH: 270,
+  NORTHEAST: 315,
+  EAST: 0,
+  SOUTHEAST: 45,
+  SOUTH: 90,
+  SOUTHWEST: 135,
+  WEST: 180,
+  NORTHWEST: 225 
+};

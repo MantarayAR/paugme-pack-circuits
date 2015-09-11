@@ -17,8 +17,10 @@ function Inventory() {
 
   this.removeItem = function ( itemName ) {
     if ( items[itemName] ) {
-      if ( items[itemName].amount > 0 ) {
+      if ( items[itemName].amount > 1 ) {
         items[itemName].amount--;  
+      } else {
+        delete items[itemName];
       }
     }
   };
@@ -39,6 +41,10 @@ function Inventory() {
     }
 
     return false;
+  };
+
+  this.size = function () {
+    return Object.keys( items ).length;
   }
 };
 
