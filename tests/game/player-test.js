@@ -91,4 +91,36 @@ describe('a player', function () {
 
     expect( this.player.health ).toBe( 90 );
   });
+
+  it('can throttle damage', function () {
+    this.player.health = 100;
+    this.player.takeDamage( 10 );
+    this.player.takeDamage( 10 );
+    this.player.takeDamage( 10 );
+
+    expect( this.player.health ).toBe( 90 );
+  });
+
+  it('can take damage after throttle', function () {
+    this.player.health = 100;
+    this.player.damageThrottleFrames = 1;
+    this.player.takeDamage( 10 );
+    this.player.takeDamage( 10 );
+
+    this.player.tick();
+
+    this.player.takeDamage( 10 );
+    this.player.takeDamage( 10 );
+
+    expect( this.player.health ).toBe( 80 );
+  });
+
+  it('does not take damage if invincible', function () {
+    this.player.isInvincible = true;
+    this.player.health = 100;
+
+    this.player.takeDamage( 10 );
+
+    expect( this.player.health ).toBe( 100 );
+  });
 });

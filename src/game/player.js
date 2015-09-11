@@ -9,6 +9,9 @@ module.exports = function Player( init ) {
   this.weapons   = Inventory.buildInitialWeapons();
   this.position  = new Point(0, 0);
   this.scale     = 1;
+  this.isInvincible = false;
+  this.damageThrottleFrames = 5;
+  this.damageThrottle = 0;
 
   if ( init ) {
     if ( init.startingPosition ) {
@@ -48,8 +51,29 @@ module.exports = function Player( init ) {
   };
 
   this.takeDamage = function( damage ) {
-    if ( ! this.isInvincible ) {
+    if ( this.canTakeDamage() ) {
       this.health -= damage;
+      this.damageThrottle = this.damageThrottleFrames;
     }
   };
+
+  this.canTakeDamage = function() {
+    if ( this.isInvincible ) {
+      return false;
+    }
+
+    if ( this.damageThrottle === 0 ) {
+      return true;
+    }
+
+    return false;
+  };
+
+  this.tick = function () {
+    if ( this.damageThrottle > 0 ) {
+      this.damageThrottle -= 1;
+    }
+    
+    // TODO
+  }
 };
