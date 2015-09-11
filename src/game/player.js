@@ -1,10 +1,24 @@
-var PlayerConstants = require('player-constants');
-var Inventory       = require('inventory');
+var PlayerConstants = require('./player-constants');
+var Inventory       = require('./inventory');
+var Point           = require('../../framework/graph/point');
+var Vector = require('../../framework/graph/vector');
 
-module.exports = function Player() {
+module.exports = function Player( init ) {
   this.health    = PlayerConstants.MAXIMUM_HEALTH;
   this.gates     = Inventory.buildEmpty();
   this.weapons   = Inventory.buildInitialWeapons();
+  this.position  = new Point(0, 0);
+  this.scale     = 1;
+
+  if ( init ) {
+    if ( init.startingPosition ) {
+      this.position = init.startingPosition;
+    }
+
+    if ( init.scale ) {
+      this.scale = init.scale;
+    }
+  }
 
   this.addGate = function ( gateItem ) {
     this.gates.addItem( gateItem.name, gateItem );
@@ -25,4 +39,11 @@ module.exports = function Player() {
   this.disableWeapon = function( weaponItemName ) {
     this.weapons.getItem( weaponItemName ).disable();
   };
+
+  this.move = function( direction ) {
+    var vector = new Vector();
+    vector.setMagnitudeAndDirection( this.scale, direction );
+
+    this.position.add( vector );
+  }
 };
