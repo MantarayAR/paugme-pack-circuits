@@ -57,5 +57,11 @@ describe('inventory', function () {
   it('can build a wepaons inventory that has weapons', function () {
     var value = Inventory.buildInitialWeapons();
     expect( value.hasItem( 'Phaser' ) ).toBe( true );
-  })
+  });
+
+  it('can check the size of the inventory', function () {
+    var value = Inventory.buildInitialWeapons();
+
+    expect( value.size() ).toBeGreaterThan( 0 );
+  });
 });

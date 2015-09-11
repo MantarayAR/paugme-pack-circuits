@@ -123,4 +123,40 @@ describe('a player', function () {
 
     expect( this.player.health ).toBe( 100 );
   });
+
+  it('can add a gate to its inventory', function () {
+    this.player.addGate( { name : 'test' } );
+
+    expect( this.player.gates.size() ).toBe( 1 );
+  });
+
+  it('can remove a gate from its inventory', function () {
+    var mock = { name : 'test' };
+    this.player.addGate( mock );
+
+    this.player.removeGate( mock );
+
+    expect( this.player.gates.size() ).toBe( 0 );
+  });
+
+  it('can remove a gate from its inventory by name', function () {
+    var mock = { name : 'test' };
+    this.player.addGate( mock );
+    this.player.removeGateByName( 'test' );
+
+    expect( this.player.gates.size() ).toBe( 0 );
+  });
+
+  it('can add enable a weapon in its inventory', function () {
+    this.player.enableWeapon( 'Phaser' );
+
+    expect( this.player.weapons.getItem( 'Phaser' ).enabled ).toBe( true );
+  });
+
+  it('can add disable a weapon in its inventory', function () {
+    this.player.enableWeapon( 'Phaser' );
+    this.player.disableWeapon( 'Phaser' );
+
+    expect( this.player.weapons.getItem( 'Phaser' ).enabled ).toBe( false );
+  });
 });

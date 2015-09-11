@@ -32,7 +32,7 @@ module.exports = function Player( init ) {
   };
 
   this.removeGateByName = function ( gateItemName ) {
-    this.gates.removeItem( gateItem.name );
+    this.gates.removeItem( gateItemName );
   };
 
   this.enableWeapon = function( weaponItemName ) {
@@ -74,6 +74,6 @@ module.exports = function Player( init ) {
       this.damageThrottle -= 1;
     }
     
-    // TODO
+    // TODO anything else we need to tick
   }
 };
