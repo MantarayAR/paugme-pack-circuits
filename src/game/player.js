@@ -45,5 +45,11 @@ module.exports = function Player( init ) {
     vector.setMagnitudeAndDirection( this.scale, direction );
 
     this.position.add( vector );
-  }
+  };
+
+  this.takeDamage = function( damage ) {
+    if ( ! this.isInvincible ) {
+      this.health -= damage;
+    }
+  };
 };

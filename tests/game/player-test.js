@@ -3,11 +3,6 @@ var Point  = require('../../framework/graph/point');
 var Direction = require('../../framework/graph/direction');
 var Vector = require('../../framework/graph/vector');
 
-// sin( theta ) = o / h
-// cos( theta ) = a / h
-
-// sin( 45 d ) = opposite
-
 describe('a player', function () {
   var DIAGONAL = 0.7071067811865475;
 
@@ -88,5 +83,12 @@ describe('a player', function () {
 
     expect( position.x ).toBeCloseTo( -DIAGONAL );
     expect( position.y ).toBeCloseTo( -DIAGONAL );
+  });
+
+  it('can take damage', function () {
+    this.player.health = 100;
+    this.player.takeDamage( 10 );
+
+    expect( this.player.health ).toBe( 90 );
   });
 });
