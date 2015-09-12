@@ -46,7 +46,8 @@ gulp.task('test', function () {
 gulp.task('compile', function () {
   return gulp.src(options.entryPoint + '.js')
           .pipe(browserify( {
-            insertGlobals: true
+            insertGlobals: true,
+            debug : !gulp.env.production
           } ))
           .pipe(gulp.dest(options.buildPath));
 });
