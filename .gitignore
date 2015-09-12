@@ -1,6 +1,7 @@
 .coverrun
 .DS_Store
-/debug/
 /.coverdata/
+/build/
+/debug/
 /node_modules/
 /coverage/
