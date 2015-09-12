@@ -11,7 +11,17 @@ var TTR = {
 };
 
 module.exports = function Game() {
-  var game = new Phaser.Game();
+  var size = {
+    x: 960,
+    y: 540
+  };
+
+  var game = new Phaser.Game(
+    size.x,
+    size.y,
+    Phaser.AUTO,
+    'game-container'
+  );
 
   game.state.add( 'Boot', TTR.Boot );
   game.state.add( 'Preloader', TTR.Preloader );
@@ -19,10 +29,4 @@ module.exports = function Game() {
   game.state.add( 'Game', TTR.Game );
 
   game.state.start( 'Boot' );
-
-  // Scale the game to full screen
-  game.stage.scale.startFullScreen();
-  game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL;
-  game.stage.scale.setShowAll();
-  game.stage.scale.refresh();
 };
