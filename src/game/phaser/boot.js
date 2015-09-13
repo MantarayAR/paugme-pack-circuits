@@ -1,27 +1,33 @@
-var Boot = function ( game ) {};
+var Boot = function ( game ) {
+  this.game = game;
+};
 
 Boot.prototype.preload = function () {
   // TODO load in any title images
+
+  // TODO support different languages
+  this.game.load.json('i18n', 'assets/i18n/en.json');
 };
 
 /**
  * Setup the game scaling
  */
 Boot.prototype.create = function () {
-  
-  this.stage.disableVisibilityChange = false;
+  this.game.stage.disableVisibilityChange = false;
   // Scale the game to full screen
-  game.stage.scale.startFullScreen();
-  game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL;
-  game.stage.scale.setShowAll();
-  game.stage.scale.refresh();
+  this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  this.game.scale.minWidth = 480;
+  this.game.scale.minHeight = 270;
+  this.game.scale.pageAlignHorizontally = true;
+  this.game.scale.pageAlignVertically = true;
+  this.game.stage.forceLandscape = true;
 
-  this.input.maxPointers = 1;
-  this.input.addPointer();
+  this.game.input.maxPointers = 1;
+  this.game.input.addPointer();
 
-  this.stage.backgroundColor = "#171642";
+  this.game.stage.backgroundColor = "#171642";
 
-  this.state.start('Preloader');
+  this.game.state.start('Preloader');
 }
 
 module.exports = Boot;

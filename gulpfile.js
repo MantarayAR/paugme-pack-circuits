@@ -55,7 +55,8 @@ gulp.task('test', function () {
             reporter: 'lcov'
           }))
           .pipe(coveralls())
-          .pipe(gulp.dest('coverage'));
+          .pipe(gulp.dest('coverage'))
+          .pipe(browserSync.stream());
 });
 
 gulp.task('compile', function () {
@@ -64,14 +65,16 @@ gulp.task('compile', function () {
             insertGlobals: true,
             debug : !gulp.env.production
           } ))
-          .pipe(gulp.dest(options.buildPath));
+          .pipe(gulp.dest(options.buildPath))
+          .pipe(browserSync.stream());
 });
 
 gulp.task('minify', function () {
   return gulp.src(options.buildPath + options.entryPoint + '.js')
           .pipe(minify( {} ))
           .pipe(rename(options.entryPoint + '.min.js' ))
-          .pipe(gulp.dest(options.buildPath));
+          .pipe(gulp.dest(options.buildPath))
+          .pipe(browserSync.stream());
 });
 
 gulp.task('build', function () {
