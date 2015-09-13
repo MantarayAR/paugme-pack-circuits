@@ -16,17 +16,7 @@ var Preloader = function ( game ) {
 };
 
 Preloader.prototype.preload = function () {
-  // Load fonts
-  // this.game.load.bitmapFont(
-  //     'golden_age',
-  //     'assets/fonts/golden_age.png',
-  //     'assets/fonts/golden_age.xml'
-  // );
-  this.game.load.bitmapFont(
-    'carrier_command',
-    'assets/fonts/carrier_command.png',
-    'assets/fonts/carrier_command.xml'
-  );
+  // TODO
 };
 
 Preloader.prototype.create = function () {

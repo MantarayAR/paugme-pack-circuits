@@ -55,8 +55,7 @@ gulp.task('test', function () {
             reporter: 'lcov'
           }))
           .pipe(coveralls())
-          .pipe(gulp.dest('coverage'))
-          .pipe(browserSync.stream());
+          .pipe(gulp.dest('coverage'));
 });
 
 gulp.task('compile', function () {

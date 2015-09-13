@@ -22,6 +22,7 @@ StartMenu.prototype.create = function () {
   );
   this.titleText.anchor.x = 0.5;
 
+  this.game.add.button( this.game.world.centerX - 100, 400, 'button', this.onClickStartGame, this, 2, 1, 0 );
 };
 
 StartMenu.prototype.startGame = function () {
@@ -42,6 +43,10 @@ StartMenu.prototype.animateTitle = function () {
   var rotation = 0.01 * Math.sin( 2 * this.game.time.totalElapsedSeconds() % ( Math.PI * 2 ) ) % Math.PI * 2;
 
   this.titleText.rotation = rotation;
+};
+
+StartMenu.prototype.onClickStartGame = function () {
+
 };
 
 module.exports = StartMenu;
