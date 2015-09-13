@@ -17,6 +17,8 @@ var Preloader = function ( game ) {
 
 Preloader.prototype.preload = function () {
   // TODO
+
+  this.game.load.spritesheet('button', 'assets/buttons/button_sprite_sheet.png', 150, 38);
 };
 
 Preloader.prototype.create = function () {
