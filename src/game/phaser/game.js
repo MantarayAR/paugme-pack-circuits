@@ -1,9 +1,11 @@
+var Level = require('../level');
+
 var Game = function ( game ) {
   
 };
 
 Game.prototype.create = function () {
-  // TODO
+  this.buildWorld();
 };
 
 Game.prototype.update = function () {
@@ -15,7 +17,12 @@ Game.prototype.updateSeconds = function () {
 };
 
 Game.prototype.buildWorld = function () {
+  var seed = 0;
+
   // TODO
+  // var seed = + new Date();
+
+  this.level = Level.generateLevel( seed );
 };
 
 module.exports = Game;

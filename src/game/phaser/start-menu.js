@@ -1,10 +1,15 @@
 var LabelButton = require('./components/label-button');
 
+var VibrationFacade = require('../../../framework/facades/vibrate');
+
 var StartMenu = function ( game ) {
   this.game = game;
+  this.startMenuState = 'idle';
 
   this.titleText;
   this.startButton;
+
+  this.buttons = [];
 };
 
 StartMenu.prototype.create = function () {  
@@ -12,13 +17,13 @@ StartMenu.prototype.create = function () {
   var __ = this.game.cache.getJSON('i18n');
 
   var style = {
-    font: '60px Monospace',
+    font: '70px pixeltype',
     fill: '#fff',
     align: 'center'
   };
 
   var buttonStyle = {
-    font: '35px Monospace',
+    font: '39px pixeltype',
     fill: '#000',
     align: 'center'
   };
@@ -59,12 +64,18 @@ StartMenu.prototype.create = function () {
 
   this.startButton.label.setStyle( buttonStyle );
   this.signInButton.label.setStyle( buttonStyle );
+
+
+  this.buttons.push( this.startButton );
+  this.buttons.push( this.signInButton );
 };
 
 StartMenu.prototype.update = function () {
   this.animateTitle();
-  this.animateButton( this.startButton );
-  this.animateButton( this.signInButton );
+
+  for ( var i = 0; i < this.buttons.length; i++ ) {
+    this.animateButton( this.buttons[i] );
+  }
 };
 
 StartMenu.prototype.animateTitle = function () {
@@ -85,12 +96,44 @@ StartMenu.prototype.animateButton = function ( button ) {
   button.scale.y = scale;
 }
 
+StartMenu.prototype.startGame = function () {
+  console.log( 'Starting Game' );
+
+  this.game.state.start('Game');
+};
+
 StartMenu.prototype.onClickStartGame = function () {
-  // TODO
+  if ( this.startMenuState === 'idle' ) {
+    this.startMenuState = 'animating';
+
+    VibrationFacade.vibrate( 'low' );
+    
+    var delay = 0;
+
+    for ( var i = this.buttons.length - 1; i >= 0; i-- ) {
+      this.game.add.tween( this.buttons[i] ).to(
+        { x : - this.game.world.width * 1.5 },
+        1000, Phaser.Easing.Cubic.Out,
+        true,
+        delay
+      );
+    }
+
+    var tween = this.game.add.tween( this.titleText ).to(
+        { x : - this.game.world.height * 1.5 },
+        1000, Phaser.Easing.Cubic.Out,
+        true,
+        delay
+      );
+
+    tween.onComplete.add( this.startGame, this );
+  }
 };
 
 StartMenu.prototype.onClickSignIn = function () {
   // TODO
+
+  VibrationFacade.vibrate( 'low' );
 };
 
 module.exports = StartMenu;

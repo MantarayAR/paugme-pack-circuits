@@ -4,9 +4,24 @@
   <meta name="mobile-web-app-capable" content="yes"/>
   <meta name="viewport" content="width-device-width" />
   <title>Take That, Robot!</title>
+  <style>
+    /* latin */
+    @font-face {
+      font-family: 'pixeltype';
+      font-style: normal;
+      font-weight: 400;
+      src: local('pixeltype'), url(./assets/fonts/pixeltype.woff2) format('woff2');
+    }
+    .font-loader {
+      font-family: 'pixeltype';
+      position: absolute;
+      left: -1000px;
+    }
+  </style>
 </head>
 <body>
   <div id="game-container"></div>
+  <div class="font-loader">Render</div>
 
   <script src="lib/phaser.min.js"></script>
   <script src="paugme-pack-circuits.js"></script>
