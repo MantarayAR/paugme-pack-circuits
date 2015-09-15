@@ -16,9 +16,9 @@ var Preloader = function ( game ) {
 };
 
 Preloader.prototype.preload = function () {
-  // TODO
-
   this.game.load.spritesheet('button', 'assets/buttons/button_sprite_sheet.png', 150, 38);
+  
+  this.game.load.image('startMenuBackground00', 'assets/graphics/start-menu-background-00.png')
 };
 
 Preloader.prototype.create = function () {

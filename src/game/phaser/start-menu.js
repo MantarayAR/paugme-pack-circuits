@@ -16,6 +16,8 @@ StartMenu.prototype.create = function () {
   // Set up the Start Menu
   var __ = this.game.cache.getJSON('i18n');
 
+  this.game.add.sprite(0, 0, 'startMenuBackground00');
+
   var style = {
     font: '70px pixeltype',
     fill: '#fff',

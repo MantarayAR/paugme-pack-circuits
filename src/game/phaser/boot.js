@@ -25,7 +25,7 @@ Boot.prototype.create = function () {
   this.game.input.maxPointers = 1;
   this.game.input.addPointer();
 
-  this.game.stage.backgroundColor = "#171642";
+  this.game.stage.backgroundColor = "#121270";
 
   this.game.state.start('Preloader');
 }
