@@ -14,8 +14,8 @@ var minify     = require('gulp-minify');
 
 var options = {
   testPaths : [
-    'tests/*.js',
-    'tests/**/*.js',
+    'tests/spec/*.js',
+    'tests/spec/**/*.js',
   ],
   filePaths : [
     'framework/*.js',

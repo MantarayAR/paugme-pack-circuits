@@ -1,7 +1,7 @@
 var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
-var XnorGate                 = require('../../src/circuit-components/logic-components/xnor-gate');
+var XnorGate                 = require('../../../src/circuit-components/logic-components/xnor-gate');
 var AbstractMatcher         = require('../matchers/abstract-matcher');
 
 describe('a xnor gate', function () {

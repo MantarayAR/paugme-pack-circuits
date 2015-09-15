@@ -1,4 +1,4 @@
-var Item = require('../../src/game/item');
+var Item = require('../../../src/game/item');
 
 describe('an item', function () {
   it('has a name', function() {

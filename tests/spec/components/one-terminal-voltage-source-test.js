@@ -1,4 +1,4 @@
-var OneTerminalVoltageSource = require('../../src/circuit-components/active-components/one-terminal-voltage-source');
+var OneTerminalVoltageSource = require('../../../src/circuit-components/active-components/one-terminal-voltage-source');
 var AbstractMatcher          = require('../matchers/abstract-matcher');
 
 describe('a one terminal voltage source', function () {

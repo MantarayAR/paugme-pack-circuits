@@ -1,7 +1,7 @@
 var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
-var Switch                  = require('../../src/circuit-components/passive-components/switch');
+var Switch                  = require('../../../src/circuit-components/passive-components/switch');
 var AbstractMatcher         = require('../matchers/abstract-matcher');
 
 describe('the switch', function () {

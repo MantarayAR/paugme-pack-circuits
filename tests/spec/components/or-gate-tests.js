@@ -1,7 +1,7 @@
 var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
-var OrGate                  = require('../../src/circuit-components/logic-components/or-gate');
+var OrGate                  = require('../../../src/circuit-components/logic-components/or-gate');
 var AbstractMatcher         = require('../matchers/abstract-matcher');
 
 describe('an or gate', function () {

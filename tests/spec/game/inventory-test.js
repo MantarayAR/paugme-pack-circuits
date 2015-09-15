@@ -1,4 +1,4 @@
-var Inventory = require('../../src/game/inventory');
+var Inventory = require('../../../src/game/inventory');
 
 describe('inventory', function () {
   beforeEach(function () {

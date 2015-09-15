@@ -1,7 +1,7 @@
 var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
-var AndGate                 = require('../../src/circuit-components/logic-components/and-gate');
+var AndGate                 = require('../../../src/circuit-components/logic-components/and-gate');
 var AbstractMatcher         = require('../matchers/abstract-matcher');
 
 describe('an and gate', function() {

@@ -1,6 +1,6 @@
-var PhaserWeapon = require('../../src/game/weapons/phaser-weapon');
-var Circuit = require('../../src/composites/circuit');
-var AndGate = require('../../src/circuit-components/logic-components/and-gate');
+var PhaserWeapon = require('../../../src/game/weapons/phaser-weapon');
+var Circuit = require('../../../src/composites/circuit');
+var AndGate = require('../../../src/circuit-components/logic-components/and-gate');
 
 describe('phaser weapon', function () {
   beforeEach(function () {

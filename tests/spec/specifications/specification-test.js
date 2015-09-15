@@ -1,8 +1,8 @@
-var CircuitSpecification = require('../../src/specifications/circuit-specification');
-var Circuit = require('../../src/composites/circuit');
-var AndGate = require('../../src/circuit-components/logic-components/and-gate');
-var OrGate  = require('../../src/circuit-components/logic-components/or-gate');
-var NorGate  = require('../../src/circuit-components/logic-components/nor-gate');
+var CircuitSpecification = require('../../../src/specifications/circuit-specification');
+var Circuit = require('../../../src/composites/circuit');
+var AndGate = require('../../../src/circuit-components/logic-components/and-gate');
+var OrGate  = require('../../../src/circuit-components/logic-components/or-gate');
+var NorGate  = require('../../../src/circuit-components/logic-components/nor-gate');
 
 describe('a specification', function () {
   beforeEach(function () {

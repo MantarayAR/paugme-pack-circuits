@@ -1,7 +1,7 @@
-var Player = require('../../src/game/player');
-var Point  = require('../../framework/graph/point');
-var Direction = require('../../framework/graph/direction');
-var Vector = require('../../framework/graph/vector');
+var Player = require('../../../src/game/player');
+var Point  = require('../../../framework/graph/point');
+var Direction = require('../../../framework/graph/direction');
+var Vector = require('../../../framework/graph/vector');
 
 describe('a player', function () {
   var DIAGONAL = 0.7071067811865475;

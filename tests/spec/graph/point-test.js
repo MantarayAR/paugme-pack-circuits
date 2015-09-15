@@ -1,5 +1,5 @@
-var Point = require('../../framework/graph/point');
-var Vector = require('../../framework/graph/vector');
+var Point = require('../../../framework/graph/point');
+var Vector = require('../../../framework/graph/vector');
 
 describe('a point', function () {
   beforeEach(function () {

@@ -1,6 +1,6 @@
-var Class     = require('../../framework/class/class');
-var Component = require('../../framework/components/component');
-var Gate      = require('../../framework/components/gate');
+var Class     = require('../../../framework/class/class');
+var Component = require('../../../framework/components/component');
+var Gate      = require('../../../framework/components/gate');
 
 /**
  * Contains mock components for testing

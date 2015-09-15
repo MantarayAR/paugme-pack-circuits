@@ -1,4 +1,4 @@
-var LogicHandler = require('../../src/handlers/logic-handler');
+var LogicHandler = require('../../../src/handlers/logic-handler');
 
 describe('the logic handler', function () {
   it('correctly map booleans', function () {

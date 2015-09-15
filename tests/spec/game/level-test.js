@@ -1,4 +1,4 @@
-var Level = require('../../src/game/level');
+var Level = require('../../../src/game/level');
 
 describe('a level', function () {
   it('can be generated', function () {

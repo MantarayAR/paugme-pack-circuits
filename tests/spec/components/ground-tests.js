@@ -1,7 +1,7 @@
 var MockInputs              = require('../mocks/mock-inputs');
 var TrueLogicMockComponent  = MockInputs.TrueLogicMockComponent;
 var FalseLogicMockComponent = MockInputs.FalseLogicMockComponent;
-var Ground                  = require('../../src/circuit-components/active-components/ground');
+var Ground                  = require('../../../src/circuit-components/active-components/ground');
 var AbstractMatcher         = require('../matchers/abstract-matcher');
 
 describe('the ground', function () {

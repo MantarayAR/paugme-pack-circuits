@@ -1,5 +1,5 @@
-var Vector = require('../../framework/graph/vector');
-var Point  = require('../../framework/graph/point');
+var Vector = require('../../../framework/graph/vector');
+var Point  = require('../../../framework/graph/point');
 
 describe('a vector', function () {
   it('can be initialized with no data', function () {
