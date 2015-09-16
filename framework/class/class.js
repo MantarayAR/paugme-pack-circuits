@@ -31,6 +31,5 @@ Class.implement = function ( obj, that ) {
   }
 }
 
-Object.prototype.Class = Class;
 
 module.exports = Class;
