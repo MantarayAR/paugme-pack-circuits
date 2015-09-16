@@ -14,7 +14,7 @@ var Class = require('../../../framework/class/class');
  * @param {int} [options.topology] Topology 4 or 6 or 8
  */
 Cellular = function(width, height, options) {
-	this.Class.extend( Map, this );
+	Class.extend( Map, this );
 	Map.call(this, width, height);
 
 	this._options = {

@@ -4,7 +4,7 @@ var Ground = require('../circuit-components/active-components/ground');
 var OneTerminalVoltageSource = require('../circuit-components/active-components/one-terminal-voltage-source');
 
 module.exports = function CircuitSpecificationTickTest( inputLabels, outputLabels, inputValues, outputValues ) {
-  this.Class.extend( Specification, this );
+  Class.extend( Specification, this );
   this.inputLabels = inputLabels;
   this.outputLabels = outputLabels;
   this.inputValues = inputValues;

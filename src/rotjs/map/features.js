@@ -23,7 +23,7 @@ Feature.createRandomAt = function(x, y, dx, dy, options) {}
  * @param {int} [doorY]
  */
 Feature.Room = function(x1, y1, x2, y2, doorX, doorY) {
-	this.Class.extend( Feature, this );
+	Class.extend( Feature, this );
 	this._x1 = x1;
 	this._y1 = y1;
 	this._x2 = x2;
@@ -225,13 +225,13 @@ Feature.Room.prototype.getBottom = function() {
  * @param {int} endY
  */
 Feature.Corridor = function(startX, startY, endX, endY) {
+	Class.extend( Feature, this );
 	this._startX = startX;
 	this._startY = startY;
 	this._endX = endX; 
 	this._endY = endY;
 	this._endsWithAWall = true;
 }
-Feature.Corridor.extend(Feature);
 
 Feature.Corridor.createRandomAt = function(x, y, dx, dy, options) {
 	var min = options.corridorLength[0];

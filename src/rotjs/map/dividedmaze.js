@@ -6,7 +6,7 @@ var Class = require('../../../framework/class/class');
  * @augments ROT.Map
  */
 DividedMaze = function(width, height) {
-	this.Class.extend( Map, this );
+	Class.extend( Map, this );
 	Map.call(this, width, height);
 	this._stack = [];
 }

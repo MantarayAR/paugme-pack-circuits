@@ -1,8 +1,9 @@
 var Class = require('../../../framework/class/class');
-var DIRS = require('../rot');
+var DIRS = require('../rot').DIRS;
 var RNG = require('../rng')
-// var Map = require('./map');
-// var Dungeon = require('./dungeon');
+var Map = require('./map');
+var Dungeon = require('./dungeon');
+var Feature = require('./features');
 
 /**
  * @class Random dungeon generator using human-like digging patterns.
@@ -11,7 +12,7 @@ var RNG = require('../rng')
  * @augments ROT.Map.Dungeon
  */
 Digger = function(width, height, options) {
-	this.Class.extend( Dungeon, this );
+	Class.extend( Dungeon, this );
 	Dungeon.call(this, width, height);
 	
 	this._options = {
@@ -129,7 +130,7 @@ Digger.prototype._priorityWallCallback = function(x, y) {
 Digger.prototype._firstRoom = function() {
 	var cx = Math.floor(this._width/2);
 	var cy = Math.floor(this._height/2);
-	var room = ROT.Map.Feature.Room.createRandomCenter(cx, cy, this._options);
+	var room = Feature.Room.createRandomCenter(cx, cy, this._options);
 	this._rooms.push(room);
 	room.create(this._digCallback);
 }
@@ -152,7 +153,7 @@ Digger.prototype._findWall = function() {
 	var arr = (prio2.length ? prio2 : prio1);
 	if (!arr.length) { return null; } /* no walls :/ */
 	
-	var id = arr.random();
+	var id = arr[Math.floor(RNG.getUniform() * arr.length)];
 	delete this._walls[id];
 
 	return id;
@@ -164,19 +165,15 @@ Digger.prototype._findWall = function() {
  */
 Digger.prototype._tryFeature = function(x, y, dx, dy) {
 	var feature = RNG.getWeightedValue(this._features);
-	feature = Map.Feature[feature].createRandomAt(x, y, dx, dy, this._options);
+	feature = Feature[feature].createRandomAt(x, y, dx, dy, this._options);
 	
 	if (!feature.isValid(this._isWallCallback, this._canBeDugCallback)) {
-//		console.log("not valid");
-//		feature.debug();
 		return false;
 	}
 	
 	feature.create(this._digCallback);
-//	feature.debug();
-
-	if (feature instanceof Map.Feature.Room) { this._rooms.push(feature); }
-	if (feature instanceof Map.Feature.Corridor) { 
+	if (feature instanceof Feature.Room) { this._rooms.push(feature); }
+	if (feature instanceof Feature.Corridor) { 
 		feature.createPriorityWalls(this._priorityWallCallback);
 		this._corridors.push(feature); 
 	}

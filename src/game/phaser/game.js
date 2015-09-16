@@ -17,7 +17,7 @@ Game.prototype.updateSeconds = function () {
 };
 
 Game.prototype.buildWorld = function () {
-  var seed = 0;
+  var seed = 1;
 
   // TODO
   // var seed = + new Date();

@@ -3,8 +3,8 @@ var Component    = require('../../../framework/components/component');
 var Gate         = require('../../../framework/components/gate');
 
 module.exports = function Ground() {
-  this.Class.extend( Component, this );
-  this.Class.implement( Gate, this );
+  Class.extend( Component, this );
+  Class.implement( Gate, this );
 
   this.calculate = function () {
     var maxValue = 0;

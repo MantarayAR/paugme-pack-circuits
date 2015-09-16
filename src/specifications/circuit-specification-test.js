@@ -8,7 +8,7 @@ var Specification = require('../../framework/specifications/specification');
  * of one or more sequential tick tests
  */
 module.exports = function CircuitSpecificationTest( tickTests ) {
-  this.Class.extend( Specification, this );
+  Class.extend( Specification, this );
   this.tickTests = tickTests;
 
   this.isSatisfiedBy = function( circuit ) {

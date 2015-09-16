@@ -2,7 +2,7 @@ var Weapon = require('../weapon');
 var CircuitSpecification = require('../../specifications/circuit-specification');
 
 module.exports = function PhaserWeapon() {
-  this.Class.extend( Weapon, this );
+  Class.extend( Weapon, this );
 
   this.name = 'Phaser';
 

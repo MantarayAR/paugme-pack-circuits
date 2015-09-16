@@ -7,7 +7,7 @@ var Class = require('../../../framework/class/class');
  * @augments Dungeon
  */
 Uniform = function(width, height, options) {
-	this.Class.extend( Dungeon, this );
+	Class.extend( Dungeon, this );
 	Dungeon.call(this, width, height);
 
 	this._options = {

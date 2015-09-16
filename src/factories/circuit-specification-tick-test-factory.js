@@ -6,7 +6,7 @@ var CircuitSpecificationTickTest = require('../specifications/circuit-specificat
  * Create a Circuit Specification Tick Test
  */
 module.exports = function CircuitSpecificationTickTestFactory() {
-  this.Class.extend( Factory, this );
+  Class.extend( Factory, this );
   var inputLabels;
   var outputLabels;
   var inputValues;

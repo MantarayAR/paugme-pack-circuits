@@ -8,8 +8,8 @@ var Gate      = require('../../../framework/components/gate');
  */
 
 exports.TrueLogicMockComponent = function() {
-  this.Class.extend( Component, this );
-  this.Class.implement( Gate, this );
+  Class.extend( Component, this );
+  Class.implement( Gate, this );
 
   this.calculate = function () {
     return this.TRUE_VOLTAGE;
@@ -17,8 +17,8 @@ exports.TrueLogicMockComponent = function() {
 }
 
 exports.FalseLogicMockComponent = function() {
-  this.Class.extend( Component, this );
-  this.Class.implement( Gate, this );
+  Class.extend( Component, this );
+  Class.implement( Gate, this );
 
   this.calculate = function () {
     return this.FALSE_VOLTAGE;
@@ -26,8 +26,8 @@ exports.FalseLogicMockComponent = function() {
 }
 
 exports.FalseBoundaryMockCompnent = function() {
-  this.Class.extend( Component, this );
-  this.Class.implement( Gate, this );
+  Class.extend( Component, this );
+  Class.implement( Gate, this );
 
   this.logicHandler = new LogicHandler();
 
@@ -37,8 +37,8 @@ exports.FalseBoundaryMockCompnent = function() {
 }
 
 exports.NegativeVoltageMockComponent = function() {
-  this.Class.extend( Component, this );
-  this.Class.implement( Gate, this );
+  Class.extend( Component, this );
+  Class.implement( Gate, this );
 
   this.calculate = function () {
     return -1;
@@ -46,8 +46,8 @@ exports.NegativeVoltageMockComponent = function() {
 }
 
 exports.HighVoltageMockComponent = function() {
-  this.Class.extend( Component, this );
-  this.Class.implement( Gate, this );
+  Class.extend( Component, this );
+  Class.implement( Gate, this );
 
   this.calculate = function () {
     return 1000;

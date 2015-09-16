@@ -6,7 +6,7 @@ var CircuitSpecificationTest = require('../specifications/circuit-specification-
  * Create Circuit Specification Tests
  */
 module.exports = function CircuitSpecificationTestFactory() {
-  this.Class.extend( Factory, this );
+  Class.extend( Factory, this );
 
   var ticks = [];
 

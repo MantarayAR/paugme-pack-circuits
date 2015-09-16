@@ -3,8 +3,8 @@ var Component = require('../../../framework/components/component.js');
 var Gate      = require('../../../framework/components/gate.js');
 
 module.exports = function Switch() {
-  this.Class.extend( Component, this );
-  this.Class.implement( Gate, this );
+  Class.extend( Component, this );
+  Class.implement( Gate, this );
 
   this.state = false;
 

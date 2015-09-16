@@ -16,7 +16,7 @@ var Class = require('../../../framework/class/class');
  * @param {int} [options.roomHeight] Room min and max height - normally set auto-magically via the constructor. 
  */
 Rogue = function(width, height, options) {
-	this.Class.extend( Map );
+	Class.extend( Map );
 	call(this, width, height);
 	
 	this._options = {

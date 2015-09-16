@@ -10,7 +10,7 @@ var Gate    = require('../../framework/components/gate');
  * @implements Gate
  */
 module.exports = function LogicHandler() {
-  this.Class.implement( Handler, this );
+  Class.implement( Handler, this );
   this.Gate = new Gate();
 
   this.TRUE_VOLTAGE_FACTOR    = 0.5;
