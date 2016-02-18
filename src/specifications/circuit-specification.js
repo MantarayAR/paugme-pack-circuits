@@ -3,7 +3,7 @@ var Specification = require('../../framework/specifications/specification');
 var CircuitSpecificationTestFactory = require('../factories/circuit-specification-test-factory');
 
 module.exports = function CircuitSpecification() {
-  this.Class.extend( Specification, this );
+  Class.extend( Specification, this );
 
   var tests = [];
   var inputLabels;

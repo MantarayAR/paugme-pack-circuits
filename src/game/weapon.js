@@ -2,7 +2,7 @@ var Item  = require('./item');
 var Class = require('../../framework/class/class');
 
 module.exports = function Weapon() {
-  this.Class.extend( Item, this );
+  Class.extend( Item, this );
   this.name = 'weapon';
   this.enabled = false;
 

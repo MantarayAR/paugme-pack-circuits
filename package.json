@@ -25,12 +25,14 @@
   },
   "homepage": "https://github.com/MantarayAR/paugme-pack-circuits#readme",
   "devDependencies": {
+    "browser-sync": "^2.9.3",
     "gulp": "^3.9.0",
     "gulp-browserify": "^0.5.1",
     "gulp-coverage": "^0.3.36",
     "gulp-coveralls": "^0.1.4",
     "gulp-jasmine": "^2.0.1",
     "gulp-minify": "0.0.5",
+    "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "run-sequence": "^1.1.2"
   }

@@ -1,7 +1,8 @@
 .coverrun
 .DS_Store
 /.coverdata/
-/build/
+/build/paugme-pack-circuits.js
+/build/paugme-pack-circuits.min.js
 /debug/
 /node_modules/
 /coverage/

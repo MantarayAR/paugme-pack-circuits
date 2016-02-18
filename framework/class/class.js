@@ -14,7 +14,9 @@ Class.abstractMethod = function () {
 Class.extend = function ( obj, that ) {
   var o = new obj();
   for ( var property in o ) {
-    that[property] = o[property];
+    if ( typeof that[property] === 'undefined' ) {
+      that[property] = o[property];
+    }
   }
 }
 
@@ -31,6 +33,5 @@ Class.implement = function ( obj, that ) {
   }
 }
 
-Object.prototype.Class = Class;
 
 module.exports = Class;

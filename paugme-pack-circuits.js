@@ -1,8 +1,8 @@
-var Player = require('./src/game/player');
+var Game = require('./src/game/game');
 
 console.log(
   'Paugme Packs Circuits\n' +
   'Copyright Mantaray AR LLC 2015\n'
 );
 
-var player = new Player();
+var game = new Game();
